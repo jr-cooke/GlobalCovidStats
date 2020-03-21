@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 
-export default function useStats(url) {
-  const [stats, setStats] = useState();
+export default function useDataFetch(url) {
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -12,18 +13,19 @@ export default function useStats(url) {
         const request = await fetch(url);
         const res = await request.json();
         if (request.status === 404) throw res;
-        setStats(res);
+        setData(res);
         setLoading(false);  
       } catch(err) {
-        setStats();
+        setData();
         setError(err.error);
         setLoading(false);
       }
     }
     fetchData();
   }, [url]);
+  
   return {
-    stats,
+    data,
     loading,
     error,
   };

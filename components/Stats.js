@@ -1,23 +1,31 @@
-import useStats from '../utils/useStats';
+import useDataFetch from '../utils/useDataFetch';
+import styled from 'styled-components';
 
 export default function Stats({ url }) {
-  const { stats, loading, error } = useStats(url);
+  const { data, loading, error } = useDataFetch(url);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
   return (
-    <div>
+    <StatsWrapper>
       <div>
         <h3>Confirmed:</h3>
-        <span>{stats.confirmed.value}</span>
+        <span>{data.confirmed.value}</span>
       </div>
       <div>
         <h3>Deaths:</h3>
-        <span>{stats.deaths.value}</span>
+        <span>{data.deaths.value}</span>
       </div>
       <div>
         <h3>Recovered:</h3>
-        <span>{stats.recovered.value}</span>
+        <span>{data.recovered.value}</span>
       </div>
-    </div>
+    </StatsWrapper>
   );
 }
+
+const StatsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;

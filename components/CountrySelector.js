@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import useStats from '../utils/useStats';
+import useDataFetch from '../utils/useDataFetch';
 import Stats from './Stats';
 
 export default function CountrySelector() {
-  const { stats: countries, loading, error } = useStats(
+  const { stats: countries, loading, error } = useDataFetch(
     'https://covid19.mathdro.id/api/countries'
   );
   const [selectedCountry, setSelectedCountry] = useState('USA');
