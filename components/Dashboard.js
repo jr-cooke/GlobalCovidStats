@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import Stats from './Stats';
 import WorldMap from './WorldMap';
-// import BarChart from './BarChart';
-// import CountrySelector from '../components/CountrySelector';
 
 export default function Dashboard(){
   return (
