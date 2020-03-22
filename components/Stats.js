@@ -9,15 +9,15 @@ export default function Stats({ url }) {
     <StatsWrapper>
       <div>
         <h3>Confirmed:</h3>
-        <span>{data.confirmed.value}</span>
+        <span>{data.cases}</span>
       </div>
       <div>
         <h3>Deaths:</h3>
-        <span>{data.deaths.value}</span>
+        <span>{data.deaths}</span>
       </div>
       <div>
         <h3>Recovered:</h3>
-        <span>{data.recovered.value}</span>
+        <span>{data.recovered}</span>
       </div>
     </StatsWrapper>
   );
