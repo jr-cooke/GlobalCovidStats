@@ -8,10 +8,10 @@ export default function Dashboard(){
   return (
     <DashboardWrapper>
       <Header>Global Corvid-19 Pandemic</Header>
-      <Stats url="https://corona.lmao.ninja/all"></Stats>
-      <WorldMap />
-      {/* <BarChart /> */}
-      {/* <CountrySelector></CountrySelector> */}
+      <DashboardContent>
+        <Stats url="https://corona.lmao.ninja/all"></Stats>
+        <WorldMap />
+      </DashboardContent>
     </DashboardWrapper>
   );
 }
@@ -22,8 +22,13 @@ const Header = styled.h1`
 `;
 
 const DashboardWrapper = styled.div`
+  flex: 1;    
   display: flex;
   flex-direction: column;
-  height: 100vh;
   background: #ffffff;
+`;
+
+const DashboardContent = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
