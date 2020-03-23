@@ -1,21 +1,16 @@
 import { useState, useRef } from 'react';
 import { Choropleth } from "@nivo/geo";
-import { worldmap } from '../constants/worldmap';
-import useDataFetch from "../utils/useDataFetch";
-import useWindowSize from '../utils/useWindowSize';
+import { worldmap } from '../../constants/worldmap';
+import useWindowSize from '../../utils/useWindowSize';
 
-export default function WorldMap(){
+export default function Map({data}){
   const [scale, setScale] = useState(100);
   const [panning, setPanning] = useState(false);
   const [translation, setTranslation] = useState([0.5, 0.5])
-  const { data, loading, error } = useDataFetch("https://corona.lmao.ninja/countries");
   const { width, height } = useWindowSize();
   
   const x = useRef();
   const y = useRef()
-  
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error...</p>;
   
   const processedData = data.map(dp => ({ id: dp.country, value: dp.cases }));
   

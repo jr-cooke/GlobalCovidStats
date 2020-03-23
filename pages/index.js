@@ -1,20 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../components/Dashboard/Dashboard';
 
-const GlobalStyle = createGlobalStyle`
-  html {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  body {
-    margin: 0;
-  }
-`;
-
-export default function IndexPage() {
-  return (
-    <>
-      <GlobalStyle />
-      <Dashboard />
-    </>
-  )
+export default function IndexPage({ data }) {
+  return <Dashboard data={data}/>
 }
