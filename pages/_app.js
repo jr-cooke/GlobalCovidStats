@@ -14,24 +14,36 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function RonaTime({ Component, pageProps}) {
-  const {data, loading, error} = useDataFetch("https://corona.lmao.ninja/countries");
+  const {
+    data: totals,
+    loading: totalsLoading,
+    error: totalsError
+  } = useDataFetch("https://covid19.mathdro.id/api");
+
+  const {
+    data: history,
+    loading: historyLoading,
+    error: historyError
+  } = useDataFetch("https://covid19.mathdro.id/api/daily");
 
   const getPage = () => {
-    if (loading) return (
+    if (totalsLoading || historyLoading) return (
       <BeatLoaderWrapper>
         <BeatLoader />
       </BeatLoaderWrapper>
     );
-    if (error) return <p>Error...</p>;
-    return <Component {...pageProps} data={data} />;
+    if (totalsError || historyError) return <p>Error...</p>;
+    return <Component {...pageProps} totals={totals} history={history} />;
   }
 
   return (
-    <>
+    <AppContainer>
       <NavBar />
       <GlobalStyle />
-      {getPage()}
-    </>
+      <PageWrapper>
+        {getPage()}
+      </PageWrapper>
+    </ AppContainer>
   );
 }
 
@@ -41,4 +53,13 @@ const BeatLoaderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100vh - 50px);
+`;
+
+const PageWrapper = styled.div`
+  margin: auto;
+  max-width: 1000px;
+`;
+
+const AppContainer = styled.div`
+  width: 100%;
 `;

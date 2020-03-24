@@ -1,5 +1,5 @@
-import Dashboard from '../components/Dashboard/Dashboard';
+import Dashboard from '../components/Dashboard';
 
-export default function IndexPage({ data }) {
-  return <Dashboard data={data}/>
+export default function IndexPage({ totals, history }) {
+  return <Dashboard totals={totals} history={history} />;
 }
