@@ -9,7 +9,6 @@ import {
   ResponsiveContainer
 } from "recharts";
 import {
-  backgroundColor,
   textColor,
   chartTooltipBackground
 } from "../../../theme";

@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-  body {
+  body {    
     transition: all 0.3s ease;
     background: ${backgroundColor};
     color: ${textColor};
@@ -30,14 +30,45 @@ export default function RonaTime({ Component, pageProps}) {
     error: historyError
   } = useDataFetch("https://covid19.mathdro.id/api/daily");
 
+  const {
+    data: countries,
+    loading: countriesLoading,
+    error: countriesError
+  } = useDataFetch("https://covid19.mathdro.id/api/countries");
+  
+  const {
+    data: countryStats,
+    loading: countryStatsLoading,
+    error: countryStatsError
+  } = useDataFetch("https://covid19.mathdro.id/api/confirmed");
+
   const getPage = () => {
-    if (totalsLoading || historyLoading) return (
+    if (
+      totalsLoading 
+      || historyLoading 
+      || countriesLoading 
+      || countryStatsLoading
+    ) return (
       <BeatLoaderWrapper>
         <BeatLoader />
       </BeatLoaderWrapper>
     );
-    if (totalsError || historyError) return <p>Error...</p>;
-    return <Component {...pageProps} totals={totals} history={history} />;
+
+    if (
+      totalsError 
+      || historyError 
+      || countriesError 
+      || countryStatsError
+    ) return <p>Error...</p>;
+
+    return (
+      <Component 
+        {...pageProps} 
+        totals={totals} 
+        history={history} 
+        countries={countries} 
+        countryStats={countryStats}
+      />);
   }
 
   return (
