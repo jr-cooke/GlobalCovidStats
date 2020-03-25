@@ -35,7 +35,7 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
  
   return (
     <DashboardWrapper>
-      <DashboardHeader>Global Covid-19 Outbreak</DashboardHeader>
+      <DashboardHeader>Global COVID-19 Outbreak</DashboardHeader>
       <Totals totals={totals} history={history} />
       <Timeline history={history} />
       <Countries countries={reducedCountries} />
