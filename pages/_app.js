@@ -2,13 +2,17 @@ import styled, { createGlobalStyle } from "styled-components";
 import NavBar from "../components/Layout/NavBar";
 import useDataFetch from "../utils/useDataFetch";
 import BeatLoader from 'react-spinners/BeatLoader';
+import { MyThemeProvider } from "../contexts/theme";
+import { backgroundColor, textColor } from "../theme";
 
 const GlobalStyle = createGlobalStyle`
   html {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   body {
-    background: #F6F7F9;
+    transition: all 0.3s ease;
+    background: ${backgroundColor};
+    color: ${textColor};
     margin: 0;
   }
 `;
@@ -37,13 +41,13 @@ export default function RonaTime({ Component, pageProps}) {
   }
 
   return (
-    <AppContainer>
+    <MyThemeProvider>
       <NavBar />
       <GlobalStyle />
       <PageWrapper>
         {getPage()}
       </PageWrapper>
-    </ AppContainer>
+    </ MyThemeProvider>
   );
 }
 
@@ -57,7 +61,7 @@ const BeatLoaderWrapper = styled.div`
 
 const PageWrapper = styled.div`
   margin: auto;
-  max-width: 1000px;
+  max-width: 800px;
 `;
 
 const AppContainer = styled.div`

@@ -1,24 +1,41 @@
-import styled from 'styled-components';
-import Link from "next/link";
+import styled, { keyframes } from 'styled-components';
+import { useTheme } from "../../contexts/theme";
+import { WiSunset, WiMoonset } from 'react-icons/wi';
+import { toggleButtonColor } from "../../theme";
 
 export default function NavBar() {
+  const themeToggle = useTheme();
+
   return (
     <NavWrapper>
-      <Link href="/">
-        <NavTitle>Global Corvid-19 Outbreak</NavTitle>
-      </Link>
+      <ThemeToggle onClick={() => themeToggle.toggle()}>
+        {themeToggle.theme.mode === 'dark' ? <WiSunset /> : <WiMoonset />}
+      </ThemeToggle>
     </NavWrapper>
   );
 }
 
+const fadeIn = keyframes`	
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.8;
+  }
+`;
+
 const NavWrapper = styled.nav`
   display: flex;
   align-items: center;
-  height: 70px;
-  justify-content: center;
+  justify-content: flex-end;
+  height: 38px;
+  padding: 1rem;
 `;
 
-const NavTitle = styled.a`
-  font-size: 24px;
-  font-weight: 300;
+const ThemeToggle = styled.div`
+  font-size: 38px;
+  color: ${toggleButtonColor};
+  animation: ${fadeIn} 0.5s linear;
+  transition: color 0.5s ease;
+  opacity: 0.8;
 `;

@@ -24,41 +24,47 @@ export default function Totals({totals, history}) {
 const fadeIn = keyframes`	
   0% {
     opacity: 0;
-    transform: translateX(-20px);
+    /* transform: translateX(-20px); */
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    /* transform: translateX(0); */
   }
 `;
 
 const TotalsWrapper = styled.div`
+  position: relative;
+  top: 40px;
   display: flex;
   flex-direction: row;
-  margin-left: 15px;
-  animation: ${fadeIn} 1.5s linear;
+  justify-content: space-around;
+  animation: ${fadeIn} 0.5s linear;
 `;
 
 const Total = styled.div`
-  position: relative;
-  top: 60px;
   display: flex;
   flex-direction: column;
-  margin-right: 50px;
+  justify-content: center;
 `;
 
 const Number = styled.span`
   color: ${({ color }) => color};
   font-size: 38px;
   font-weight: 200;
+  display: flex;
+  justify-content: center;
 `;
 
 const SubNumber = styled.span`
   font-size: 14px;
   margin-bottom: 3px;
   font-weight: 300;
+  display: flex;
+  justify-content: center;
 `;
 
 const Label = styled.span`
   font-weight: 300;
+  display: flex;
+  justify-content: center;
 `;

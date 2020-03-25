@@ -8,6 +8,11 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
+import {
+  backgroundColor,
+  textColor,
+  chartTooltipBackground
+} from "../../../theme";
 
 import { formatNumber } from '../../../helpers/numbers';
 
@@ -88,6 +93,8 @@ export default function Timeline({history}) {
 }
 
 const TotalsTimeline = styled.div`
+  position: relative;
+  top: -30px;
   width: 100%;
   height: 330px;
   display: flex;
@@ -96,6 +103,8 @@ const TotalsTimeline = styled.div`
 
 const CustomTickText = styled.text`
   font-size: 12px;
+  fill: ${textColor};
+  animation: all 0.5s ease;
 `;
 
 const ToolTipWrapper = styled.div`
@@ -105,7 +114,7 @@ const ToolTipWrapper = styled.div`
   flex-direction: column;
   border-radius: 10px;
   width: 150px;
-  background-color: #ffffff;
+  background-color: ${chartTooltipBackground};
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
 `;
 
