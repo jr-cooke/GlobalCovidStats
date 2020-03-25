@@ -20,5 +20,5 @@ const NavWrapper = styled.nav`
 
 const NavTitle = styled.a`
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 300;
 `;
