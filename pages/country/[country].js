@@ -43,25 +43,25 @@ const Country = () => {
     })
   }
   
-  // const regionNames = regions.map(r => r. provinceState && r.provinceState).filter((x, i, a) => a.indexOf(x) == i).flat()
-  // let groupedRegions = [];
-  // for (let i = 0; i < regionNames.length; i++) {
-  //   groupedRegions.push(
-  //     regions.filter(
-  //       r => r.provinceState === regionNames[i]
-  //     )
-  //   );
-  // }
+  const regionNames = regions.map(r => r. provinceState && r.provinceState).filter((x, i, a) => a.indexOf(x) == i)
+  let groupedRegions = [];
+  for (let i = 0; i < regionNames.length; i++) {
+    groupedRegions.push(
+      regions.filter(
+        r => r.provinceState === regionNames[i]
+      )
+    );
+  }
 
-  // const reducedRegions = groupedRegions
-  //   .map(gR => {
-  //     return {
-  //       region: gR[0].provinceState ? gR[0].provinceState : gR[0].countryRegion,
-  //       confirmed: gR.reduce((total, c) => total + c.confirmed, 0),
-  //       deaths: gR.reduce((total, c) => total + c.deaths, 0)
-  //     };
-  //   })
-  //   .sort((a, b) => b.confirmed - a.confirmed);
+  const reducedRegions = groupedRegions
+    .map(gR => {
+      return {
+        region: gR[0].provinceState ? gR[0].provinceState : gR[0].countryRegion,
+        confirmed: gR.reduce((total, c) => total + c.confirmed, 0),
+        deaths: gR.reduce((total, c) => total + c.deaths, 0)
+      };
+    })
+    .sort((a, b) => b.confirmed - a.confirmed);
   
   return (
     <CountryWrapper>
