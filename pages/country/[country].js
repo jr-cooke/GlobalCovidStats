@@ -4,7 +4,8 @@ import useDataFetch from "../../utils/useDataFetch";
 import Totals from '../../components/Dashboard/components/Totals'
 import CountryTimeline from '../../components/Dashboard/components/CountryTimeline'
 import BeatLoader from "react-spinners/BeatLoader";
-import { textColor } from "../../theme";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import Regions from '../../components/Dashboard/components/Regions';
 // import Link from "next/link";
 
@@ -65,7 +66,10 @@ const Country = () => {
   
   return (
     <CountryWrapper>
-      <CountryHeader>{country}</CountryHeader>
+      <CountryHeader>
+        <span>{country}</span>
+        <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
+      </CountryHeader>
       <Totals
         totals={totals}
         history={data}
@@ -73,9 +77,7 @@ const Country = () => {
         newDeaths={totals.deaths.value - data[data.length - 1].deaths}
       />
       <CountryTimeline history={data} />
-      {reducedRegions.length > 1 && (
-        <Regions regions={reducedRegions} />
-      )}
+      {reducedRegions.length > 1 && <Regions regions={reducedRegions} />}
     </CountryWrapper>
   );
 };
@@ -103,13 +105,19 @@ const CountryWrapper = styled.div`
   top: -10px;
 `;
 
-const CountryHeader = styled.span`
+const CountryHeader = styled.div`
   display: flex;
+  width: 100%;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   font-size: 24px;
   font-weight: 300;
   animation: ${fadeIn} 0.5s linear;
   margin-bottom: 30px;
+  small {
+    font-size: 14px;
+  }
 `;
 
 const StatCard = styled.div`

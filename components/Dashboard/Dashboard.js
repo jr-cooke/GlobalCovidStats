@@ -2,6 +2,10 @@ import styled, { keyframes } from 'styled-components';
 import Timeline from './components/Timeline';
 import Totals from './components/Totals';
 import Countries from './components/Countries';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 export default function Dashboard({ totals, history, countries, countryStats }) {
  let groupedCountries = []
@@ -30,7 +34,10 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
  
   return (
     <DashboardWrapper>
-      <DashboardHeader>COVID-19 Outbreak</DashboardHeader>
+      <DashboardHeader>
+        <span>COVID-19 Outbreak</span>
+        <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
+      </DashboardHeader>
       <Totals
         totals={totals}
         history={history}
@@ -60,11 +67,17 @@ const fadeIn = keyframes`
   }
 `;
 
-const DashboardHeader = styled.span`
+const DashboardHeader = styled.div`
   display: flex;
+  width: 100%;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   font-size: 24px;
   font-weight: 300;
   animation: ${fadeIn} 0.5s linear;
   margin-bottom: 30px;
+  small{
+   font-size: 14px; 
+  }
 `;
