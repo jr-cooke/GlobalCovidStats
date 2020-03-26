@@ -17,5 +17,5 @@ export const toggleButtonColor = theme("mode", {
 
 export const chartTooltipBackground = theme("mode", {
   light: '#ffffff',
-  dark: '#424242'
+  dark: '#212121'
 });

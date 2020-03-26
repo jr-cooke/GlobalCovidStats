@@ -1,10 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { formatNumber } from "../../../helpers/numbers";
 
-export default function Totals({totals, history}) {
-  const newConfirmed = totals.confirmed.value - history[history.length - 1].totalConfirmed;
-  const newDeaths = totals.deaths.value - history[history.length - 1].deaths.total;
-
+export default function Totals({totals, history, newConfirmed, newDeaths}) {
   return (
     <TotalsWrapper>
       <Total>
@@ -24,17 +21,13 @@ export default function Totals({totals, history}) {
 const fadeIn = keyframes`	
   0% {
     opacity: 0;
-    /* transform: translateX(-20px); */
   }
   100% {
     opacity: 1;
-    /* transform: translateX(0); */
   }
 `;
 
 const TotalsWrapper = styled.div`
-  position: relative;
-  top: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

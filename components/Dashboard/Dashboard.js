@@ -4,10 +4,6 @@ import Totals from './components/Totals';
 import Countries from './components/Countries';
 
 export default function Dashboard({ totals, history, countries, countryStats }) {
-  console.log("Dashboard -> countryStats", countryStats)
-  console.log("Dashboard -> countries", countries)
-  console.log("Dashboard -> history", history)
-  console.log("Dashboard -> totals", totals)
   let groupedCountries = []
   for (let i = 0; i < countries.countries.length - 1; i++) {
     groupedCountries.push(
@@ -31,12 +27,20 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
       };
     })
     .sort((a, b) => b.confirmed - a.confirmed);
-      console.log("Dashboard -> reducedCountries", reducedCountries)
  
   return (
     <DashboardWrapper>
-      <DashboardHeader>Global COVID-19 Outbreak</DashboardHeader>
-      <Totals totals={totals} history={history} />
+      <DashboardHeader>COVID-19 Outbreak</DashboardHeader>
+      <Totals
+        totals={totals}
+        history={history}
+        newConfirmed={
+          totals.confirmed.value - history[history.length - 1].totalConfirmed
+        }
+        newDeaths={
+          totals.deaths.value - history[history.length - 1].deaths.total
+        }
+      />
       <Timeline history={history} />
       <Countries countries={reducedCountries} />
     </DashboardWrapper>
@@ -45,8 +49,6 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
 
 const DashboardWrapper = styled.div`
   padding: 1rem;
-  position: relative;
-  top: -10px;
 `;
 
 const fadeIn = keyframes`	
@@ -64,4 +66,5 @@ const DashboardHeader = styled.span`
   font-size: 24px;
   font-weight: 300;
   animation: ${fadeIn} 0.5s linear;
+  margin-bottom: 30px;
 `;

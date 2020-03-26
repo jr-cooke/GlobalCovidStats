@@ -50,7 +50,7 @@ export default function RonaTime({ Component, pageProps}) {
       || countryStatsLoading
     ) return (
       <BeatLoaderWrapper>
-        <BeatLoader />
+        <BeatLoader color={"#fb8c00"}/>
       </BeatLoaderWrapper>
     );
 

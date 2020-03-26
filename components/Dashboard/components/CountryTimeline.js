@@ -1,23 +1,12 @@
+import styled from "styled-components";
+import dayjs from "dayjs";
+import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { textColor, chartTooltipBackground } from "../../../theme";
 
-import styled from 'styled-components';
-import dayjs from 'dayjs';
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  Tooltip,
-  ResponsiveContainer
-} from "recharts";
-import {
-  textColor,
-  chartTooltipBackground
-} from "../../../theme";
-
-import { formatNumber } from '../../../helpers/numbers';
+import { formatNumber } from "../../../helpers/numbers";
 
 function CustomTick(props) {
-  const {x, y, payload} = props;
-  
+  const { x, y, payload } = props;
   return (
     <g transform={`translate(${x},${y})`}>
       <CustomTickText
@@ -28,7 +17,7 @@ function CustomTick(props) {
         fill="#666"
         transform="rotate(45)"
       >
-        {dayjs(payload.value).format('MMM DD')}
+        {dayjs(payload.value).format("MMM DD")}
       </CustomTickText>
     </g>
   );
@@ -39,22 +28,22 @@ function CustomTooltip({ active, payload }) {
     return (
       <ToolTipWrapper>
         <ToolTipLabel>
-          {dayjs(payload[0].payload.reportDate).format("MMM DD, YYYY")}
+          {dayjs(payload[0].payload.date).format("MMM DD, YYYY")}
         </ToolTipLabel>
         <ToolTipLabel color="#fb8c00">
-          Confirmed: {formatNumber(payload[0].payload.totalConfirmed)}
+          Confirmed: {formatNumber(payload[0].payload.confirmed)}
         </ToolTipLabel>
         <ToolTipLabel color="#e53935">
-          Deaths: {formatNumber(payload[0].payload.deaths.total)}
+          Deaths: {formatNumber(payload[0].payload.deaths)}
         </ToolTipLabel>
       </ToolTipWrapper>
     );
   }
-
   return null;
-};
+}
 
-export default function Timeline({history}) {
+export default function CountryTimeline({ history }) { 
+  console.log("CountryTimeline -> history", history)
   return (
     <TotalsTimeline>
       <ResponsiveContainer>
@@ -64,7 +53,7 @@ export default function Timeline({history}) {
           margin={{ left: 15, right: 15, bottom: 30 }}
         >
           <XAxis
-            dataKey="reportDate"
+            dataKey="date"
             tickCount={1}
             interval={7}
             axisLine={false}
@@ -73,14 +62,14 @@ export default function Timeline({history}) {
           <Tooltip offset={0} cursor={false} content={<CustomTooltip />} />
           <Area
             type="monotone"
-            dataKey="totalConfirmed"
+            dataKey="confirmed"
             stackId="1"
             stroke="#fb8c00"
             fill="#fb8c00"
           />
           <Area
             type="monotone"
-            dataKey="deaths.total"
+            dataKey="deaths"
             stackId="2"
             stroke="#e53935"
             fill="#e53935"
@@ -88,16 +77,16 @@ export default function Timeline({history}) {
         </AreaChart>
       </ResponsiveContainer>
     </TotalsTimeline>
-  )
+  );
 }
 
 const TotalsTimeline = styled.div`
-  position: relative;
-  top: -25px;
   width: 100%;
   height: 300px;
   display: flex;
   flex-direction: row;
+  position: relative;
+  top: -25px;
 `;
 
 const CustomTickText = styled.text`

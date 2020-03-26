@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { chartTooltipBackground, textColor } from "../../../theme";
+import { formatNumber } from "../../../helpers/numbers";
+import Link from "next/link";
 
 export default function Countries({ countries }) {
   const [search, setSearch] = useState('');
   const [filteredCountries, setFilteredCountries] = useState(countries);
-  
+
   const handleInput = (e) => {
     setSearch(e.target.value);
   }
@@ -20,7 +22,11 @@ export default function Countries({ countries }) {
 
   return (
     <Wrapper>
-      <Input value={search} onChange={e => handleInput(e)} placeholder='Search Countries'/>
+      <Input
+        value={search}
+        onChange={e => handleInput(e)}
+        placeholder="Search Countries"
+      />
       <Header>
         <Empty />
         <Value>Country</Value>
@@ -28,26 +34,32 @@ export default function Countries({ countries }) {
         <Value shift>Deaths</Value>
       </Header>
       {filteredCountries.map(country => (
-        <Country key={country.country}>
-          {country.flag ? (
-            <Img src={country.flag} />
-          ) : (
-            <Img src="/mockflag.png" />
-          )}
-          <Value>{country.country}</Value>
-          <Value shift color="#fb8c00">
-            {country.confirmed}
-          </Value>
-          <Value shift color="#e53935">
-            {country.deaths}
-          </Value>
-        </Country>
+        <Link
+          key={country.country}
+          href="/country/[country]"
+          as={`/country/${country.country}`}
+        >
+          <Country>
+            {country.flag ? (
+              <Img src={country.flag} />
+            ) : (
+              <Img mock src="/mockflag.png" />
+            )}
+            <Value>{country.country}</Value>
+            <Value shift color="#fb8c00">
+              {formatNumber(country.confirmed)}
+            </Value>
+            <Value shift color="#e53935">
+              {formatNumber(country.deaths)}
+            </Value>
+          </Country>
+        </Link>
       ))}
     </Wrapper>
   );
 }
 
-const Country = styled.div`
+const Country = styled.a`
   margin: 10px 0px;
   display: flex;
   justify-content: space-evenly;
@@ -60,6 +72,7 @@ const Country = styled.div`
 
 const Img = styled.img`
   width: 10%;
+  padding: ${({ mock }) => mock ? '10px' : 0};
 `;
 
 const Empty = styled.img`
@@ -107,7 +120,7 @@ const Input = styled.input`
 
 const Wrapper = styled.div`
   position: relative;
-  top: -25px;
+  top: -30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
