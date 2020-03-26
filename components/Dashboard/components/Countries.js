@@ -65,10 +65,11 @@ const Country = styled.a`
   justify-content: space-evenly;
   align-items: center;
   background-color: ${chartTooltipBackground};
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23); */
   border-radius: 10px;
   opacity: 0.8;
   padding: 8px;
+  /* border: 1px solid grey; */
 `;
 
 const Img = styled.img`
@@ -116,7 +117,7 @@ const Input = styled.input`
   color: ${textColor};
   text-align: center;
   font-size: 24px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23); */
   &:active {
     outline: none;
   }
