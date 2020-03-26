@@ -43,7 +43,7 @@ const Country = () => {
     })
   }
   
-  const regionNames = regions.map(r => r. provinceState && r.provinceState).filter((x, i, a) => a.indexOf(x) == i)
+  const regionNames = regions.map(r => r.provinceState).filter((x, i, a) => a.indexOf(x) == i)
   let groupedRegions = [];
   for (let i = 0; i < regionNames.length; i++) {
     groupedRegions.push(
