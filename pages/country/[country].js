@@ -73,9 +73,9 @@ const Country = () => {
         newDeaths={totals.deaths.value - data[data.length - 1].deaths}
       />
       <CountryTimeline history={data} />
-      {reducedRegions.length > 1 && (
+      {/* {reducedRegions.length > 1 && (
         <Regions regions={reducedRegions} />
-      )}
+      )} */}
     </CountryWrapper>
   );
 };
