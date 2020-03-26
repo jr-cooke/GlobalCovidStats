@@ -4,8 +4,8 @@ import Totals from './components/Totals';
 import Countries from './components/Countries';
 
 export default function Dashboard({ totals, history, countries, countryStats }) {
-  let groupedCountries = []
-  for (let i = 0; i < countries.countries.length - 1; i++) {
+ let groupedCountries = []
+  for (let i = 0; i < countries.countries.length; i++) {
     groupedCountries.push(
       countryStats.filter(
         cS => cS.countryRegion === countries.countries[i].name

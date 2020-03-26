@@ -43,14 +43,13 @@ function CustomTooltip({ active, payload }) {
 }
 
 export default function CountryTimeline({ history }) { 
-  console.log("CountryTimeline -> history", history)
   return (
     <TotalsTimeline>
       <ResponsiveContainer>
         <AreaChart
           data={history}
           strokeWidth={1.5}
-          margin={{ left: 15, right: 15, bottom: 30 }}
+          margin={{ left: 15, right: 15, bottom: 30, top: 10 }}
         >
           <XAxis
             dataKey="date"

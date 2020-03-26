@@ -16,6 +16,7 @@ export default function useDataFetch(url) {
         setData(res);
         setLoading(false);  
       } catch(err) {
+        console.log("fetchData -> err", err)
         setData();
         setError(err.error);
         setLoading(false);

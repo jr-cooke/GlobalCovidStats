@@ -9,7 +9,6 @@ import { WiDirectionLeft } from 'react-icons/wi';
 export default function NavBar() {
   const themeToggle = useTheme();
   const router = useRouter();
-  console.log("NavBar -> router", router)
   const [showBack, setShowBack] = useState(router.pathname.includes('country'))
   
   useEffect(() => {
@@ -21,7 +20,6 @@ export default function NavBar() {
     router.push('/');
   };
 
-  console.log("NavBar -> showBack", showBack)
   return (
     <NavWrapper showBack={showBack}>
       {showBack && (

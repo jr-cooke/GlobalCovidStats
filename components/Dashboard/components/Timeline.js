@@ -61,7 +61,7 @@ export default function Timeline({history}) {
         <AreaChart
           data={history}
           strokeWidth={1.5}
-          margin={{ left: 15, right: 15, bottom: 30 }}
+          margin={{ left: 15, right: 15, bottom: 30, top: 10 }}
         >
           <XAxis
             dataKey="reportDate"

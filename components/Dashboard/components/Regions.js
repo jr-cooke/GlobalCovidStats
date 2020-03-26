@@ -1,65 +1,57 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 import { chartTooltipBackground, textColor } from "../../../theme";
 import { formatNumber } from "../../../helpers/numbers";
-import Link from "next/link";
 
-export default function Countries({ countries }) {
-  const [search, setSearch] = useState('');
-  const [filteredCountries, setFilteredCountries] = useState(countries);
+export default function Regions({ regions }) {
+  const [search, setSearch] = useState("");
+  const [filteredRegions, setFilteredRegions] = useState(regions);
 
-  const handleInput = (e) => {
+  const handleInput = e => {
     setSearch(e.target.value);
-  }
+  };
 
   useEffect(() => {
-    setFilteredCountries(
-      countries.filter(
-        c => c.country.toLowerCase().includes(search.toLocaleLowerCase())
-      ))
-  }, [search])
+    setFilteredRegions(
+      regions.filter(r =>
+        r.region.toLowerCase().includes(search.toLocaleLowerCase())
+      )
+    );
+  }, [search]);
 
   return (
     <Wrapper>
       <Input
         value={search}
         onChange={e => handleInput(e)}
-        placeholder="Search Countries"
+        placeholder="Search Regions"
       />
       <Header>
-        <Empty />
-        <Name>Country</Name>
-        <Value shift>Cases</Value>
+        <Name>Region</Name>
+        <Value shift>Confirmed</Value>
         <Value shift>Deaths</Value>
       </Header>
-      {filteredCountries.map(country => (
-        <Link
-          key={country.country}
-          href="/country/[country]"
-          as={`/country/${country.country}`}
+      {filteredRegions.map(region => (
+        <div
+          key={region.region}
         >
-          <Country>
-            {country.flag ? (
-              <Img src={country.flag} />
-            ) : (
-              <Img mock src="/mockflag.png" />
-            )}
-            <Name>{country.country}</Name>
+          <Region>
+            <Name>{region.region}</Name>
             <Value shift color="#fb8c00">
-              {formatNumber(country.confirmed)}
+              {formatNumber(region.confirmed)}
             </Value>
             <Value shift color="#e53935">
-              {formatNumber(country.deaths)}
+              {formatNumber(region.deaths)}
             </Value>
-          </Country>
-        </Link>
+          </Region>
+        </div>
       ))}
     </Wrapper>
   );
 }
 
-const Country = styled.a`
+const Region = styled.a`
   margin: 10px 0px;
   display: flex;
   justify-content: space-evenly;
@@ -73,10 +65,21 @@ const Country = styled.a`
 
 const Img = styled.img`
   width: 10%;
+  padding: ${({ mock }) => (mock ? "10px" : 0)};
 `;
 
 const Empty = styled.img`
   width: 10%;
+`;
+
+const Name = styled.span`
+  font-size: 16px;
+  font-weight: 400;
+  width: 40%;
+  color: ${({ color }) => color};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Value = styled.div`
@@ -86,16 +89,6 @@ const Value = styled.div`
   width: ${({ shift }) => (shift ? "15%" : "30%")};
   justify-content: ${({ shift }) => (shift ? "flex-end" : "flex-start")};
   color: ${({ color }) => color};
-`;
-
-const Name = styled.span`
-  font-size: 16px;
-  font-weight: 400;
-  width: 25%;
-  color: ${({ color }) => color};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 const Header = styled.div`
@@ -138,10 +131,10 @@ const fadeIn = keyframes`
 `;
 
 const Wrapper = styled.div`
-  animation: ${fadeIn} 0.5s linear;
   position: relative;
-  top: -30px;
+  top: -20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: ${fadeIn} 0.5s linear;
 `;
