@@ -93,7 +93,7 @@ export default function Timeline({history}) {
 
 const TotalsTimeline = styled.div`
   position: relative;
-  top: -25px;
+  top: -35px;
   width: 100%;
   height: 300px;
   display: flex;

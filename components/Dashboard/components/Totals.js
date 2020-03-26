@@ -2,18 +2,35 @@ import styled, { keyframes } from "styled-components";
 import { formatNumber } from "../../../helpers/numbers";
 
 export default function Totals({totals, history, newConfirmed, newDeaths}) {
+  const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
   return (
     <TotalsWrapper>
-      <Total>
-        <Number color="#fb8c00">{formatNumber(totals.confirmed.value)}</Number>
-        <SubNumber>+{formatNumber(newConfirmed)} today</SubNumber>
-        <Label>Confirmed</Label>
-      </Total>
-      <Total>
-        <Number color="#e53935">{formatNumber(totals.deaths.value)}</Number>
-        <SubNumber>+{formatNumber(newDeaths)} today</SubNumber>
-        <Label>Deaths</Label>
-      </Total>
+      <TotalsRow mb={"20px"}>
+        <Total>
+          <Number color="#fb8c00">
+            {formatNumber(totals.confirmed.value)}
+          </Number>
+          <SubNumber>+{formatNumber(newConfirmed)} today</SubNumber>
+          <Label>Confirmed</Label>
+        </Total>
+        <Total>
+          <Number color="#e53935">{formatNumber(totals.deaths.value)}</Number>
+          <SubNumber>+{formatNumber(newDeaths)} today</SubNumber>
+          <Label>Deaths</Label>
+        </Total>
+      </TotalsRow>
+      <TotalsRow>
+        <Total>
+          <Number color="#1e88e5">
+            {formatNumber(totals.recovered.value)}
+          </Number>
+          <Label>Recovered</Label>
+        </Total>
+        <Total>
+          <Number color="#43a047">{formatNumber(active)}</Number>
+          <Label>Active</Label>
+        </Total>
+      </TotalsRow>
     </TotalsWrapper>
   );
 }
@@ -29,23 +46,34 @@ const fadeIn = keyframes`
 
 const TotalsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   animation: ${fadeIn} 0.5s linear;
+`;
+
+const TotalsRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: ${({ mb }) => mb || '0px'};
+  width: 100%;
 `;
 
 const Total = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 50%;
 `;
 
 const Number = styled.span`
   color: ${({ color }) => color};
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 200;
   display: flex;
   justify-content: center;
+  font-feature-settings: "tnum";
 `;
 
 const SubNumber = styled.span`

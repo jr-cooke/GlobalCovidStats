@@ -35,7 +35,7 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
   return (
     <DashboardWrapper>
       <DashboardHeader>
-        <span>COVID-19 Outbreak</span>
+        <span>COVID-19 Overview</span>
         <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
       </DashboardHeader>
       <Totals
