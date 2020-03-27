@@ -49,7 +49,7 @@ export default function Countries({ countries }) {
             <Value shift color="#fb8c00">
               {formatNumber(country.confirmed)}
             </Value>
-            <Value shift color="#e53935">
+            <Value shift color="#757575">
               {formatNumber(country.deaths)}
             </Value>
           </Country>

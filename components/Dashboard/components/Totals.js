@@ -13,14 +13,14 @@ export default function Totals({totals, active, newConfirmed, newDeaths}) {
           <Label>Confirmed</Label>
         </Total>
         <Total>
-          <Number color="#e53935">{formatNumber(totals.deaths.value)}</Number>
+          <Number color="#757575">{formatNumber(totals.deaths.value)}</Number>
           <SubNumber>+{formatNumber(newDeaths)} today</SubNumber>
           <Label>Deaths</Label>
         </Total>
       </TotalsRow>
       <TotalsRow>
         <Total>
-          <Number color="#43a047">{formatNumber(active)}</Number>
+          <Number color="#e53935">{formatNumber(active)}</Number>
           <Label>Active</Label>
         </Total>
         <Total>

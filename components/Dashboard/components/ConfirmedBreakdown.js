@@ -3,7 +3,7 @@ import { backgroundColor } from "../../../theme";
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 import { useTheme } from '../../../contexts/theme';
 
-const COLORS = ["#43a047", "#1e88e5", "#e53935"];
+const COLORS = ["#e53935", "#1e88e5", "#757575"];
 
 export default function ConfirmedBreakdown({ data }){
   const active = data.find(d => d.stat === "Active").value;
@@ -44,7 +44,7 @@ export default function ConfirmedBreakdown({ data }){
       </PieChartWrapper>
       <PercentsWrapper>
         <Total>
-          <Number color="#43a047">
+          <Number color="#e53935">
             {((active / confirmed) * 100).toFixed(2)}%
           </Number>
           <Label>Cases Active</Label>
@@ -56,7 +56,7 @@ export default function ConfirmedBreakdown({ data }){
           <Label>Recovery Rate</Label>
         </Total>
         <Total>
-          <Number color="#e53935">
+          <Number color="#757575">
             {((deaths / confirmed) * 100).toFixed(2)}%
           </Number>
           <Label>Mortality Rate</Label>

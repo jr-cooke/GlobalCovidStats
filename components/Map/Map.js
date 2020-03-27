@@ -76,7 +76,7 @@ export default function Map({data}){
           '#e57373',
           '#ef5350',
           '#f44336',
-          '#e53935',
+          '#757575',
           '#d32f2f',
           '#c62828',
           '#b71c1c'

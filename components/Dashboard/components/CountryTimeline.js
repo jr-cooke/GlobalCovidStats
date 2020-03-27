@@ -33,7 +33,7 @@ function CustomTooltip({ active, payload }) {
         <ToolTipLabel color="#fb8c00">
           Confirmed: {formatNumber(payload[0].payload.confirmed)}
         </ToolTipLabel>
-        <ToolTipLabel color="#e53935">
+        <ToolTipLabel color="#757575">
           Deaths: {formatNumber(payload[0].payload.deaths)}
         </ToolTipLabel>
       </ToolTipWrapper>
@@ -70,8 +70,8 @@ export default function CountryTimeline({ history }) {
             type="monotone"
             dataKey="deaths"
             stackId="2"
-            stroke="#e53935"
-            fill="#e53935"
+            stroke="#757575"
+            fill="#757575"
           />
         </AreaChart>
       </ResponsiveContainer>
