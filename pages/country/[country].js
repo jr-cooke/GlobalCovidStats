@@ -7,6 +7,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Regions from '../../components/Dashboard/components/Regions';
+import ConfirmedBreakdown from '../../components/Dashboard/components/ConfirmedBreakdown';
 dayjs.extend(relativeTime);
 // import Link from "next/link";
 
@@ -65,6 +66,23 @@ const Country = () => {
     })
     .sort((a, b) => b.confirmed - a.confirmed);
   
+  const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
+  
+  const pieData = [
+    {
+      stat: "Active",
+      value: active
+    },
+    {
+      stat: "Recovered",
+      value: totals.recovered.value
+    },
+    {
+      stat: "Deaths",
+      value: totals.deaths.value
+    }
+  ];
+  
   return (
     <CountryWrapper>
       <CountryHeader>
@@ -74,10 +92,12 @@ const Country = () => {
       <Totals
         totals={totals}
         history={data}
+        active={active}
         newConfirmed={totals.confirmed.value - data[data.length - 1].confirmed}
         newDeaths={totals.deaths.value - data[data.length - 1].deaths}
       />
       <CountryTimeline history={data} />
+      <ConfirmedBreakdown data={pieData} />
       {reducedRegions.length > 1 && <Regions regions={reducedRegions} />}
     </CountryWrapper>
   );

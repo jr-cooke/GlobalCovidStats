@@ -24,8 +24,8 @@ export default function ConfirmedBreakdown({ data }){
             <Pie
               stroke="none"
               data={data}
-              innerRadius="94%"
-              outerRadius="100%"
+              innerRadius="74%"
+              outerRadius="80%"
               fill="#82ca9d"
               dataKey="value"
               paddingAngle={5}
@@ -103,16 +103,10 @@ const Number = styled.span`
   font-feature-settings: "tnum";
 `;
 
-const SubNumber = styled.span`
-  font-size: 14px;
-  margin-bottom: 3px;
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-`;
-
 const Label = styled.span`
   font-weight: 300;
   display: flex;
   justify-content: center;
+  width: 100%;
+  white-space: nowrap;
 `;
