@@ -7,6 +7,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Regions from '../../components/Dashboard/components/Regions';
+dayjs.extend(relativeTime);
 // import Link from "next/link";
 
 const Country = () => {
