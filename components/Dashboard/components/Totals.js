@@ -1,8 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { formatNumber } from "../../../helpers/numbers";
 
-export default function Totals({totals, history, newConfirmed, newDeaths}) {
-  const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
+export default function Totals({totals, active, newConfirmed, newDeaths}) {
   return (
     <TotalsWrapper>
       <TotalsRow mb={"20px"}>
@@ -21,14 +20,14 @@ export default function Totals({totals, history, newConfirmed, newDeaths}) {
       </TotalsRow>
       <TotalsRow>
         <Total>
+          <Number color="#43a047">{formatNumber(active)}</Number>
+          <Label>Active</Label>
+        </Total>
+        <Total>
           <Number color="#1e88e5">
             {formatNumber(totals.recovered.value)}
           </Number>
           <Label>Recovered</Label>
-        </Total>
-        <Total>
-          <Number color="#43a047">{formatNumber(active)}</Number>
-          <Label>Active</Label>
         </Total>
       </TotalsRow>
     </TotalsWrapper>

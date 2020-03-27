@@ -4,6 +4,7 @@ import Totals from './components/Totals';
 import Countries from './components/Countries';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
 
 dayjs.extend(relativeTime);
 
@@ -31,6 +32,23 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
       };
     })
     .sort((a, b) => b.confirmed - a.confirmed);
+
+  const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
+
+  const pieData = [
+    {
+      stat: "Active",
+      value: active
+    },
+    {
+      stat: "Recovered",
+      value: totals.recovered.value
+    },
+    {
+      stat: "Deaths",
+      value: totals.deaths.value
+    }
+  ];
  
   return (
     <DashboardWrapper>
@@ -40,7 +58,7 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
       </DashboardHeader>
       <Totals
         totals={totals}
-        history={history}
+        active={active}
         newConfirmed={
           totals.confirmed.value - history[history.length - 1].totalConfirmed
         }
@@ -49,6 +67,7 @@ export default function Dashboard({ totals, history, countries, countryStats }) 
         }
       />
       <Timeline history={history} />
+      <ConfirmedBreakdown data={pieData} />
       <Countries countries={reducedCountries} />
     </DashboardWrapper>
   );
