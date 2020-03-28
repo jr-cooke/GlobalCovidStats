@@ -8,32 +8,39 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Regions from '../../components/Dashboard/components/Regions';
 import ConfirmedBreakdown from '../../components/Dashboard/components/ConfirmedBreakdown';
+import NavBar from '../../components/Layout/NavBar';
+import useSWR from "swr";
+
 dayjs.extend(relativeTime);
-// import Link from "next/link";
+
+const fetcher = url => fetch(url).then(r => r.json());
 
 const Country = () => {
   const router = useRouter();
   const { country } = router.query;
   
-  const { data: history, loading: historyLoading, error: historyError } = useDataFetch(
-    `https://corona.lmao.ninja/v2/historical/${country}`
+  const { data: history, error: historyError } = useSWR(
+    `https://corona.lmao.ninja/v2/historical/${country}`,
+    fetcher
   );
   
-  const { data: totals, loading: totalsLoading, error: totalsError } = useDataFetch(
-    `https://covid19.mathdro.id/api/countries/${country}`
+  const { data: totals, error: totalsError } = useSWR(
+    `https://covid19.mathdro.id/api/countries/${country}`,
+    fetcher
   );
 
-  const { data: regions, loading: regionsLoading, error: regionsError } = useDataFetch(
-    `https://covid19.mathdro.id/api/countries/${country}/confirmed`
+  const { data: regions, error: regionsError } = useSWR(
+    `https://covid19.mathdro.id/api/countries/${country}/confirmed`,
+    fetcher
   );
   
-  if (totalsLoading || historyLoading || regionsLoading ) return (
+  if (totalsError || historyError || regionsError) return <p>Error...</p>;
+
+  if ( !totals || !history || !regions ) return (
     <BeatLoaderWrapper>
       <BeatLoader color={"#fb8c00"}/>
     </BeatLoaderWrapper>
   );
-
-  if (totalsError || historyError || regionsError) return <p>Error...</p>;
 
   const dateRange = Object.keys(history.timeline.cases)
   
@@ -84,23 +91,30 @@ const Country = () => {
   ];
   
   return (
-    <CountryWrapper>
-      <CountryHeader>
-        <span>{country}</span>
-        <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
-      </CountryHeader>
-      <Totals
-        totals={totals}
-        history={data}
-        active={active}
-        newConfirmed={totals.confirmed.value - data[data.length - 1].confirmed}
-        newDeaths={totals.deaths.value - data[data.length - 1].deaths}
-      />
-      <CountryTimeline history={data} />
-      <ConfirmedBreakdown data={pieData} />
-      {reducedRegions.length > 1 && <Regions regions={reducedRegions} />}
-    </CountryWrapper>
+    <>
+     <NavBar />
+      <CountryWrapper>
+        <CountryHeader>
+          <span>{country}</span>
+          <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
+        </CountryHeader>
+        <Totals
+          totals={totals}
+          history={data}
+          active={active}
+          newConfirmed={totals.confirmed.value - data[data.length - 1].confirmed}
+          newDeaths={totals.deaths.value - data[data.length - 1].deaths}
+        />
+        <CountryTimeline history={data} />
+        <ConfirmedBreakdown data={pieData} />
+        {reducedRegions.length > 1 && <Regions regions={reducedRegions} />}
+      </CountryWrapper>
+    </>
   );
+};
+
+Country.getInitialProps = async () => {
+  return {};
 };
 
 const BeatLoaderWrapper = styled.div`
@@ -139,11 +153,6 @@ const CountryHeader = styled.div`
   small {
     font-size: 14px;
   }
-`;
-
-const StatCard = styled.div`
-  display: flex;
-  animation: ${fadeIn} 0.5s linear;
 `;
 
 export default Country;

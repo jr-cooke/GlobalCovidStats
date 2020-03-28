@@ -1,21 +1,16 @@
 import styled from 'styled-components';
-import { backgroundColor } from "../../../theme";
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 import { useTheme } from '../../../contexts/theme';
 
 const COLORS = ["#e53935", "#1e88e5", "#757575"];
 
 export default function ConfirmedBreakdown({ data }){
+  console.log("ConfirmedBreakdown -> data", data)
   const active = data.find(d => d.stat === "Active").value;
   const recovered = data.find(d => d.stat === "Recovered").value;
   const deaths = data.find(d => d.stat === "Deaths").value;
   const confirmed = active + deaths + recovered;
-  console.log("ConfirmedBreakdown -> confirmed", confirmed)
-  
-  console.log("ConfirmedBreakdown -> data", data)
   const { theme } = useTheme();
-  console.log("ConfirmedBreakdown -> theme", theme)
-  console.log(data.find(d => d.stat === "Recovered"));
   return (
     <ConfirmedBreakdownWrapper>
       <PieChartWrapper>
@@ -38,7 +33,6 @@ export default function ConfirmedBreakdown({ data }){
                 />
               ))}
             </Pie>
-            <Tooltip offset={0} />
           </PieChart>
         </ResponsiveContainer>
       </PieChartWrapper>
@@ -47,19 +41,19 @@ export default function ConfirmedBreakdown({ data }){
           <Number color="#e53935">
             {((active / confirmed) * 100).toFixed(2)}%
           </Number>
-          <Label>Cases Active</Label>
+          <Label>Active</Label>
         </Total>
         <Total>
           <Number color="#1e88e5">
             {((recovered / confirmed) * 100).toFixed(2)}%
           </Number>
-          <Label>Recovery Rate</Label>
+          <Label>Recovered</Label>
         </Total>
         <Total>
           <Number color="#757575">
             {((deaths / confirmed) * 100).toFixed(2)}%
           </Number>
-          <Label>Mortality Rate</Label>
+          <Label>Fatal</Label>
         </Total>
       </PercentsWrapper>
     </ConfirmedBreakdownWrapper>

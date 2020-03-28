@@ -30,7 +30,7 @@ export default function Regions({ regions }) {
       <Header>
         <Name>Region</Name>
         <Value shift>Confirmed</Value>
-        <Value shift>Deaths</Value>
+        <Value shift>Fatalities</Value>
       </Header>
       {filteredRegions.map(region => (
         <div
@@ -109,7 +109,6 @@ const Input = styled.input`
   color: ${textColor};
   text-align: center;
   font-size: 24px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
   &:active {
     outline: none;
   }

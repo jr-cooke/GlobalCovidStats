@@ -15,7 +15,7 @@ export default function Totals({totals, active, newConfirmed, newDeaths}) {
         <Total>
           <Number color="#757575">{formatNumber(totals.deaths.value)}</Number>
           <SubNumber>+{formatNumber(newDeaths)} today</SubNumber>
-          <Label>Deaths</Label>
+          <Label>Fatalities</Label>
         </Total>
       </TotalsRow>
       <TotalsRow>

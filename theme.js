@@ -19,3 +19,8 @@ export const chartTooltipBackground = theme("mode", {
   light: '#ffffff',
   dark: '#212121'
 });
+
+export const autoSuggestBorder = theme("mode", {
+  light: '#D6D6D6',
+  dark: '#212121'
+});

@@ -1,74 +1,27 @@
-import styled, { keyframes } from 'styled-components';
-import { useTheme } from "../../contexts/theme";
-import { WiSunset, WiMoonset } from 'react-icons/wi';
-import { toggleButtonColor } from "../../theme";
-import { useRouter } from "next/router";
-import { useState, useEffect } from 'react';
-import { WiDirectionLeft } from 'react-icons/wi';
+import styled from 'styled-components';
+import AutoSuggest from './AutoSuggest';
+import ThemeToggle from './ThemeToggle';
+import BackButton from './BackButton';
 
-export default function NavBar() {
-  const themeToggle = useTheme();
-  const router = useRouter();
-  const [showBack, setShowBack] = useState(router.pathname.includes('country'))
-  
-  useEffect(() => {
-    setShowBack(router.pathname.includes("country"));
-  }, [router.pathname])
-  
-  const handleClick = e => {
-    e.preventDefault();
-    router.push('/');
-  };
-
+export default function NavBar({countries}) {    
   return (
-    <NavWrapper showBack={showBack}>
-      {showBack && (
-        <BackButton onClick={e => handleClick(e)}>
-          <WiDirectionLeft />
-        </BackButton>
+    <NavWrapper>
+      {!countries ? (
+        <BackButton />
+      ) : (
+        <AutoSuggest countries={countries} />
       )}
-      <ThemeToggle onClick={() => themeToggle.toggle()}>
-        {themeToggle.theme.mode === "dark" ? <WiSunset /> : <WiMoonset />}
-      </ThemeToggle>
+      <ThemeToggle />
     </NavWrapper>
   );
 }
 
-const fadeIn = keyframes`	
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.8;
-  }
-`;
+
 
 const NavWrapper = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: ${({ showBack }) => showBack ? 'space-between' : 'flex-end'};
+  justify-content: space-between;
   height: 38px;
   padding: 1rem;
-`;
-
-const ThemeToggle = styled.div`
-  font-size: 38px;
-  color: ${toggleButtonColor};
-  animation: ${fadeIn} 0.5s linear;
-  transition: color 0.5s ease;
-  opacity: 0.8;
-  &:hover{
-    cursor: pointer;
-  }
-`;
-
-const BackButton = styled.div`
-  font-size: 38px;
-  color: ${toggleButtonColor};
-  animation: ${fadeIn} 0.5s linear;
-  transition: color 0.5s ease;
-  opacity: 0.8;
-  &:hover{
-    cursor: pointer;
-  }
 `;

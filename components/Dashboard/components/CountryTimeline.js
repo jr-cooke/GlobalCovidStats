@@ -34,7 +34,7 @@ function CustomTooltip({ active, payload }) {
           Confirmed: {formatNumber(payload[0].payload.confirmed)}
         </ToolTipLabel>
         <ToolTipLabel color="#757575">
-          Deaths: {formatNumber(payload[0].payload.deaths)}
+          deaths: {formatNumber(payload[0].payload.deaths)}
         </ToolTipLabel>
       </ToolTipWrapper>
     );
