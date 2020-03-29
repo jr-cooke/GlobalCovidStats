@@ -4,11 +4,14 @@ import Totals from './components/Totals';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
+import { toggleButtonColor, openTabBorder, closedTabColor, headerBorder } from "../../theme";
+
+import { useState } from 'react';
 
 dayjs.extend(relativeTime);
 
-export default function Dashboard({ totals, history, countries }) {
-
+export default function Dashboard({ totals, history }) {
+  const [openTab, setOpenTab] = useState('overview');
   const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
 
   const pieData = [
@@ -25,25 +28,52 @@ export default function Dashboard({ totals, history, countries }) {
       value: totals.deaths.value
     }
   ];
+
+  const tabs = {
+    overview: {
+      label: 'Overview',
+      view: (
+        <>
+          <Header mb='20px'>Totals</Header>
+          <Totals
+            totals={totals}
+            active={active}
+            newConfirmed={
+              totals.confirmed.value -
+              history[history.length - 1].totalConfirmed
+            }
+            newDeaths={
+              totals.deaths.value - history[history.length - 1].deaths.total
+            }
+            />
+          <Header>Breakdown</Header>
+          <ConfirmedBreakdown data={pieData} />
+        </>
+      )
+    },
+    history: {
+      label: "History",
+      view: (
+        <>
+          <Header>Confirmed and Deaths over time</Header>
+          <Timeline history={history} />
+        </>
+      )
+    } 
+  };
  
   return (
     <DashboardWrapper>
       <DashboardHeader>
-        <span>COVID-19 Overview</span>
+        <span>Global COVID-19 Stats</span>
         <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
       </DashboardHeader>
-      <Totals
-        totals={totals}
-        active={active}
-        newConfirmed={
-          totals.confirmed.value - history[history.length - 1].totalConfirmed
-        }
-        newDeaths={
-          totals.deaths.value - history[history.length - 1].deaths.total
-        }
-      />
-      <Timeline history={history} />
-      <ConfirmedBreakdown data={pieData} />
+      <Tabs>
+        {Object.keys(tabs).map(tab => (
+          <Tab openTab={openTab === tab} onClick={() => setOpenTab(tab)} key={tabs[tab].label}>{tabs[tab].label}</Tab>
+        ))}
+      </Tabs>
+      {tabs[openTab].view}
     </DashboardWrapper>
   );
 }
@@ -74,4 +104,25 @@ const DashboardHeader = styled.div`
   small{
    font-size: 14px; 
   }
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+`;
+
+const Tab = styled.span`
+  padding: 5px;
+  color: ${({ openTab }) => (openTab ? toggleButtonColor : closedTabColor)};
+  border-bottom: ${({ openTab }) => (openTab ? openTabBorder : "none")};
+`;
+
+const Header = styled.span`
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: ${props => props.mb};
+  border-bottom: 1px solid ${headerBorder};
+  padding: 5px;
+  color: ${headerBorder};
 `;

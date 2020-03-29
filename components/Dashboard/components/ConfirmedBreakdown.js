@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 import { useTheme } from '../../../contexts/theme';
 
@@ -60,9 +60,16 @@ export default function ConfirmedBreakdown({ data }){
   );
 }
 
+const fadeIn = keyframes`	
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 const ConfirmedBreakdownWrapper = styled.div`
-  position: relative;
-  top: -30px;
   display: flex;
   height: 300px;
 ` 
@@ -73,6 +80,7 @@ const PieChartWrapper = styled.div`
 `
 
 const PercentsWrapper = styled.div`
+  animation: ${fadeIn} 0.5s linear;
   display: flex;
   width: 50%;
   flex-direction: column;
@@ -91,7 +99,7 @@ const Total = styled.div`
 const Number = styled.span`
   color: ${({ color }) => color};
   font-size: 32px;
-  font-weight: 200;
+  font-weight: 300;
   display: flex;
   justify-content: center;
   font-feature-settings: "tnum";

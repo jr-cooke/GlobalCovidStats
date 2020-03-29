@@ -84,8 +84,6 @@ const TotalsTimeline = styled.div`
   height: 300px;
   display: flex;
   flex-direction: row;
-  position: relative;
-  top: -25px;
 `;
 
 const CustomTickText = styled.text`

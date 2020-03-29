@@ -130,8 +130,6 @@ const fadeIn = keyframes`
 `;
 
 const Wrapper = styled.div`
-  position: relative;
-  top: -20px;
   display: flex;
   flex-direction: column;
   justify-content: center;

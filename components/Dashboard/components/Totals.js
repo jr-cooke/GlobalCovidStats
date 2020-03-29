@@ -69,7 +69,7 @@ const Total = styled.div`
 const Number = styled.span`
   color: ${({ color }) => color};
   font-size: 32px;
-  font-weight: 200;
+  font-weight: 300;
   display: flex;
   justify-content: center;
   font-feature-settings: "tnum";

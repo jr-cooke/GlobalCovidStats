@@ -136,8 +136,6 @@ const fadeIn = keyframes`
 
 const CountryWrapper = styled.div`
   padding: 1rem;
-  position: relative;
-  top: -10px;
 `;
 
 const CountryHeader = styled.div`

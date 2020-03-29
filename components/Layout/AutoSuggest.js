@@ -17,7 +17,7 @@ export default function AutoSuggest({ countries }) {
 
   useEffect(() => {
     const handleClick = e => {
-      if (e.target.parentElement.id !== 'search') {
+      if (e.target?.parentElement?.id !== 'search') {
         setShowSearch(false); 
         setSearch('');
       } 

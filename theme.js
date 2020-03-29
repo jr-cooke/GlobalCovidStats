@@ -24,3 +24,20 @@ export const autoSuggestBorder = theme("mode", {
   light: '#D6D6D6',
   dark: '#212121'
 });
+
+export const openTabBorder = theme("mode", {
+  light: '1px solid #424242',
+  dark: '1px solid #f9a825'
+});
+
+export const closedTabColor = theme("mode", {
+  light: "#ABABAB",
+  dark: "#444444"
+});
+
+export const headerBorder = theme("mode", {
+  light: "#ABABAB",
+  dark: "#444444"
+});
+
+
