@@ -11,7 +11,7 @@ import { useState } from 'react';
 dayjs.extend(relativeTime);
 
 export default function Dashboard({ totals, history }) {
-  const [openTab, setOpenTab] = useState('overview');
+  const [openTab, setOpenTab] = useState('history');
   const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
 
   const pieData = [
@@ -55,7 +55,7 @@ export default function Dashboard({ totals, history }) {
       label: "History",
       view: (
         <>
-          <Header>Confirmed and Deaths over time</Header>
+          <Header mb='30px'>Growth over time</Header>
           <Timeline history={history} />
         </>
       )
