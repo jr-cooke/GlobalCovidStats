@@ -22,7 +22,7 @@ dayjs.extend(relativeTime);
 const fetcher = url => fetch(url).then(r => r.json());
 
 const Country = () => {
-  const [openTab, setOpenTab] = useState("regions");
+  const [openTab, setOpenTab] = useState("overview");
   const router = useRouter();
   const { country } = router.query;
   
