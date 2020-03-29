@@ -12,26 +12,16 @@ export default function ThemeToggle(){
   );
 }
 
-const fadeIn = keyframes`	
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
 const Toggle = styled.div`
   border: 1px solid ${toggleButtonColor};
   border-radius: 10px;
-  height: 18px;
   color: ${toggleButtonColor};
-  animation: ${fadeIn} 0.5s linear;
   transition: all 0.5s ease;
-  padding: 5px 10px;
+  padding: 2px 10px;
+  height: 26px;
   svg {
     font-size: 20px;
-    margin-top: -1px;
+    margin-top: 3px;
     &:hover {
       cursor: pointer;
     }

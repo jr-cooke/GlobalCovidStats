@@ -17,21 +17,11 @@ export default function BackButton(){
   )
 }
 
-const fadeIn = keyframes`	
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
 const Back = styled.div`
   border: 1px solid ${toggleButtonColor};
   border-radius: 10px;
   height: 18px;
   color: ${toggleButtonColor};
-  animation: ${fadeIn} 0.5s linear;
   transition: all 0.5s ease;
   padding: 5px 10px;
   svg {

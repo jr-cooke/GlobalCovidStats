@@ -36,11 +36,18 @@ export default function AutoSuggest({ countries }) {
             if (showSearch) {
               setSearch("");
             } else {
-              setTimeout(() => inputRef.current.focus(), 300);
+              setTimeout(
+                () => {
+                  inputRef.current.click();
+                  inputRef.current.focus();
+                },
+                300
+              );
             }
           }}
         />
         <input
+          type="text"
           ref={inputRef}
           value={search}
           onChange={e => {
@@ -87,7 +94,6 @@ const fadeIn = keyframes`
 `;
 
 const CountrySearch = styled.div`
-  animation: ${fadeIn} 0.5s linear;
   display: flex;
   color: ${toggleButtonColor};
   border: 1px solid ${toggleButtonColor};
@@ -95,20 +101,21 @@ const CountrySearch = styled.div`
   transition: 0.5s ease;
   max-width: 50%;
   border-radius: 10px;
-  padding: 5px 10px;
-  height: 18px;
+  padding: 2px 10px;
+  height: 26px;
   svg {
     font-size: 20px;
-    margin-top: -1px;
+    margin-top: 2px;
     &:hover {
       cursor: pointer;
     }
   }
-  input {
+  input[type="text"] {
+    -webkit-appearance: none;
     background: transparent;
     display: ${({ showSearch }) => (showSearch ? "block" : "none")};
     transition: 0.3s ease;
-    font-size: 14px;
+    font-size: 16px;
     border: none;
     color: ${textColor};
     width: calc(100% - 20px);
