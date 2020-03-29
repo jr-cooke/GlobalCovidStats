@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-
+import { FiSearch } from "react-icons/fi";
 import styled, { keyframes } from "styled-components";
-import { chartTooltipBackground, textColor } from "../../../theme";
+import { textColor, toggleButtonColor } from "../../../theme";
 import { formatNumber } from "../../../helpers/numbers";
 
 export default function Regions({ regions }) {
@@ -22,20 +22,20 @@ export default function Regions({ regions }) {
 
   return (
     <Wrapper>
-      <Input
-        value={search}
-        onChange={e => handleInput(e)}
-        placeholder="Search Regions"
-      />
+      <RegionSearch>
+        <FiSearch />
+        <Input
+          value={search}
+          onChange={e => handleInput(e)}
+        />
+      </RegionSearch>
       <Header>
         <Name>Region</Name>
         <Value shift>Confirmed</Value>
         <Value shift>Fatalities</Value>
       </Header>
       {filteredRegions.map(region => (
-        <div
-          key={region.region}
-        >
+        <div key={region.region}>
           <Region>
             <Name>{region.region}</Name>
             <Value shift color="#fb8c00">
@@ -56,20 +56,6 @@ const Region = styled.a`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: ${chartTooltipBackground};
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
-  border-radius: 10px;
-  opacity: 0.8;
-  padding: 8px;
-`;
-
-const Img = styled.img`
-  width: 10%;
-  padding: ${({ mock }) => (mock ? "10px" : 0)};
-`;
-
-const Empty = styled.img`
-  width: 10%;
 `;
 
 const Name = styled.span`
@@ -98,28 +84,6 @@ const Header = styled.div`
   align-items: center;
 `;
 
-const Input = styled.input`
-  height: 38px;
-  width: 80%;
-  background-color: ${chartTooltipBackground};
-  opacity: 0.8;
-  border: none;
-  margin: 20px auto;
-  border-radius: 10px;
-  color: ${textColor};
-  text-align: center;
-  font-size: 24px;
-  &:active {
-    outline: none;
-  }
-  &:focus {
-    outline: none;
-  }
-  ::placeholder {
-    font-weight: 300;
-  }
-`;
-
 const fadeIn = keyframes`	
   0% {
     opacity: 0;
@@ -134,4 +98,37 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   animation: ${fadeIn} 0.5s linear;
+`;
+
+const RegionSearch = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid ${toggleButtonColor};
+  border-radius: 10px;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px;
+  svg{
+    margin-right: 7px;
+    font-size: 20px;
+    color: ${toggleButtonColor};
+  }
+`;
+
+const Input = styled.input`
+  background-color: transparent;
+  border: none;
+  color: ${textColor};
+  font-size: 16px;
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+  ::placeholder {
+    font-weight: 300;
+  }
 `;
