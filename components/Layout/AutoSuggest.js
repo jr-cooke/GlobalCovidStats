@@ -16,6 +16,20 @@ export default function AutoSuggest({ countries }) {
   const [searchedCountries, setSearchedCountries] = useState([]);
 
   useEffect(() => {
+    const handleClick = e => {
+      if (e.target.parentElement.id !== 'search') {
+        setShowSearch(false); 
+        setSearch('');
+      } 
+    }
+
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  });
+
+  useEffect(() => {
     if (search.length > 0) {
       const filtered = countries.filter(c => {
         return c.country.toLowerCase().includes(search.toLowerCase());
@@ -29,7 +43,7 @@ export default function AutoSuggest({ countries }) {
 
   return (
     <>
-      <CountrySearch showSearch={showSearch}>
+      <CountrySearch id="search" showSearch={showSearch}>
         <FiSearch
           onClick={() => {
             setShowSearch(!showSearch);
@@ -105,7 +119,7 @@ const CountrySearch = styled.div`
   height: 26px;
   svg {
     font-size: 20px;
-    margin-top: 2px;
+    margin-top: 3px;
     &:hover {
       cursor: pointer;
     }
