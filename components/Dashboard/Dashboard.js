@@ -4,7 +4,7 @@ import Totals from './components/Totals';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
-import { toggleButtonColor, openTabBorder, closedTabColor, headerBorder } from "../../theme";
+import { toggleButtonColor, openTabBorder, closedTabColor, headerBorder, backgroundColor } from "../../theme";
 
 import { useState } from 'react';
 
@@ -102,7 +102,7 @@ const DashboardHeader = styled.div`
   animation: ${fadeIn} 0.5s linear;
   margin-bottom: 30px;
   small{
-   font-size: 14px; 
+   font-size: 16px; 
   }
 `;
 
@@ -113,9 +113,10 @@ const Tabs = styled.div`
 `;
 
 const Tab = styled.span`
+  font-size: 18px;
   padding: 5px;
-  color: ${({ openTab }) => (openTab ? toggleButtonColor : closedTabColor)};
-  border-bottom: ${({ openTab }) => (openTab ? openTabBorder : "none")};
+  color: ${({ openTab }) => (openTab ? toggleButtonColor : headerBorder)};
+  transition: border 0.5s ease-in-out;
 `;
 
 const Header = styled.span`

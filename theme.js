@@ -32,12 +32,12 @@ export const openTabBorder = theme("mode", {
 
 export const closedTabColor = theme("mode", {
   light: "#ABABAB",
-  dark: "#444444"
+  dark: "#555555"
 });
 
 export const headerBorder = theme("mode", {
   light: "#ABABAB",
-  dark: "#444444"
+  dark: "#555555"
 });
 
 
