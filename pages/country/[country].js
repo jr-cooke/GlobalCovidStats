@@ -1,8 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { useRouter } from "next/router";
-import useDataFetch from "../../utils/useDataFetch";
 import Totals from '../../components/Dashboard/components/Totals'
 import CountryTimeline from '../../components/Dashboard/components/CountryTimeline'
+import CountryDailyBarChart from '../../components/Dashboard/components/CountryDailyBarChart'
 import BeatLoader from "react-spinners/BeatLoader";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,12 +10,19 @@ import Regions from '../../components/Dashboard/components/Regions';
 import ConfirmedBreakdown from '../../components/Dashboard/components/ConfirmedBreakdown';
 import NavBar from '../../components/Layout/NavBar';
 import useSWR from "swr";
+import { useState } from 'react';
+import {
+  toggleButtonColor,
+  headerBorder,
+} from "../../theme";
+
 
 dayjs.extend(relativeTime);
 
 const fetcher = url => fetch(url).then(r => r.json());
 
 const Country = () => {
+  const [openTab, setOpenTab] = useState("overview");
   const router = useRouter();
   const { country } = router.query;
   
@@ -89,26 +96,70 @@ const Country = () => {
       value: totals.deaths.value
     }
   ];
+
+  const tabs = {
+    overview: {
+      label: "Overview",
+      view: (
+        <>
+          <Header mb="20px">Totals</Header>
+          <Totals
+            totals={totals}
+            history={data}
+            active={active}
+            newConfirmed={
+              totals.confirmed.value - data[data.length - 1].confirmed
+            }
+            newDeaths={totals.deaths.value - data[data.length - 1].deaths}
+          />
+          <Header>Breakdown</Header>
+          <ConfirmedBreakdown data={pieData} />
+        </>
+      )
+    },
+    history: {
+      label: "History",
+      view: (
+        <>
+          <Header mb="30px">Growth over time</Header>
+          <CountryTimeline history={data} />
+          <Header mb="30px">Growth per day</Header>
+          <CountryDailyBarChart daily={history} />
+        </>
+      )
+    }
+  };
+
+  if (reducedRegions.length > 1) {
+    tabs.regions = {
+      label: "Regions",
+      view: <Regions regions={reducedRegions} />
+    }
+  }
   
   return (
     <>
-     <NavBar />
-      <CountryWrapper>
-        <CountryHeader>
-          <span>{country}</span>
-          <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
-        </CountryHeader>
-        <Totals
-          totals={totals}
-          history={data}
-          active={active}
-          newConfirmed={totals.confirmed.value - data[data.length - 1].confirmed}
-          newDeaths={totals.deaths.value - data[data.length - 1].deaths}
-        />
-        <CountryTimeline history={data} />
-        <ConfirmedBreakdown data={pieData} />
-        {reducedRegions.length > 1 && <Regions regions={reducedRegions} />}
-      </CountryWrapper>
+      <NavBar />
+      <PageWrapper>
+        <CountryWrapper>
+          <CountryHeader>
+            <span>{country} COVID-19 Stats</span>
+            <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
+          </CountryHeader>
+          <Tabs>
+            {Object.keys(tabs).map(tab => (
+              <Tab
+                openTab={openTab === tab}
+                onClick={() => setOpenTab(tab)}
+                key={tabs[tab].label}
+              >
+                {tabs[tab].label}
+              </Tab>
+            ))}
+          </Tabs>
+          {tabs[openTab].view}
+        </CountryWrapper>
+      </PageWrapper>
     </>
   );
 };
@@ -151,6 +202,33 @@ const CountryHeader = styled.div`
   small {
     font-size: 14px;
   }
+`;
+
+const PageWrapper = styled.div`
+  margin: auto;
+  max-width: 800px;
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+`;
+
+const Tab = styled.span`
+  font-size: 18px;
+  padding: 5px;
+  color: ${({ openTab }) => (openTab ? toggleButtonColor : headerBorder)};
+  transition: border 0.5s ease-in-out;
+`;
+
+const Header = styled.span`
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: ${props => props.mb};
+  border-bottom: 1px solid ${headerBorder};
+  padding: 5px;
+  color: ${headerBorder};
 `;
 
 export default Country;

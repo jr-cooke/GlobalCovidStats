@@ -102,7 +102,3 @@ const PageWrapper = styled.div`
   margin: auto;
   max-width: 800px;
 `;
-
-const AppContainer = styled.div`
-  width: 100%;
-`;

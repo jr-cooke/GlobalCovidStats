@@ -5,14 +5,14 @@ import Totals from './components/Totals';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
-import { toggleButtonColor, openTabBorder, closedTabColor, headerBorder, backgroundColor } from "../../theme";
+import { toggleButtonColor, headerBorder } from "../../theme";
 
 import { useState } from 'react';
 
 dayjs.extend(relativeTime);
 
 export default function Dashboard({ totals, history, daily }) {
-  const [openTab, setOpenTab] = useState('history');
+  const [openTab, setOpenTab] = useState('overview');
   const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
 
   const pieData = [

@@ -64,14 +64,15 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 
-export default function DailyBarChart({ daily }) {
-  const dateRange = Object.keys(daily.cases);
+export default function CountryDailyBarChart({ daily }) {
+  console.log("CountryDailyBarChart -> daily", daily)
+  const dateRange = Object.keys(daily.timeline.cases);
   const perDayData = [];
   for (let i = 0; i < dateRange.length; i++) {
-    const confirmed = daily.cases[dateRange[i]];
-    const deaths = daily.deaths[dateRange[i]];
-    const pastConfirmed = i - 1 < 0 ? 0 : daily.cases[dateRange[i - 1]];
-    const pastDeaths = i - 1 < 0 ? 0 : daily.deaths[dateRange[i - 1]];
+    const confirmed = daily.timeline.cases[dateRange[i]];
+    const deaths = daily.timeline.deaths[dateRange[i]];
+    const pastConfirmed = i - 1 < 0 ? 0 : daily.timeline.cases[dateRange[i - 1]];
+    const pastDeaths = i - 1 < 0 ? 0 : daily.timeline.deaths[dateRange[i - 1]];
     perDayData.push({
       date: dateRange[i],
       confirmed: confirmed - pastConfirmed,
@@ -94,16 +95,8 @@ export default function DailyBarChart({ daily }) {
             tick={<CustomTickX />}
           />
           <Tooltip offset={0} cursor={false} content={<CustomTooltip />} />
-          <Bar
-            dataKey="confirmed"
-            fill="#fb8c00"
-            barSize={5}
-            />
-          <Bar
-            dataKey="deaths"
-            fill="#757575"
-            barSize={5}
-          />
+          <Bar dataKey="confirmed" fill="#fb8c00" barSize={5} />
+          <Bar dataKey="deaths" fill="#757575" barSize={5} />
         </BarChart>
       </ResponsiveContainer>
     </TotalsTimeline>

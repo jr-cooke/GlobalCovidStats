@@ -1,11 +1,24 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
-import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { textColor, chartTooltipBackground } from "../../../theme";
+import abbreviate from "number-abbreviate";
 
 import { formatNumber } from "../../../helpers/numbers";
 
-function CustomTick(props) {
+function CustomTickY(props) {
+  const { x, y, payload } = props;
+
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <CustomTickText x={0} y={0} dy={0} textAnchor="end" fill="#666">
+        {abbreviate(payload.value)}
+      </CustomTickText>
+    </g>
+  );
+}
+
+function CustomTickX(props) {
   const { x, y, payload } = props;
   return (
     <g transform={`translate(${x},${y})`}>
@@ -56,8 +69,9 @@ export default function CountryTimeline({ history }) {
             tickCount={1}
             interval={7}
             axisLine={false}
-            tick={<CustomTick />}
+            tick={<CustomTickX />}
           />
+          <YAxis tick={<CustomTickY />} width={30} />
           <Tooltip offset={0} cursor={false} content={<CustomTooltip />} />
           <Area
             type="monotone"
