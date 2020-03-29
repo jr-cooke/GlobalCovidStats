@@ -127,16 +127,13 @@ const Country = () => {
           <CountryDailyBarChart daily={history} />
         </>
       )
-    }
-  };
-
-  if (reducedRegions.length > 1) {
-    tabs.regions = {
+    },
+    regions: {
       label: "Regions",
       view: <Regions regions={reducedRegions} />
     }
-  }
-  
+  };
+
   return (
     <>
       <NavBar />
