@@ -11,8 +11,12 @@ export default function IndexPage() {
     "https://covid19.mathdro.id/api", fetcher
   );
 
-  const { data: history, error: historyError } = useSWR(
+  const { data: historyOverTime, error: historyOverTimeError } = useSWR(
     "https://covid19.mathdro.id/api/daily", fetcher
+  );
+
+  const { data: historyPerDay, error: historyPerDayError } = useSWR(
+    "https://corona.lmao.ninja/v2/historical/all", fetcher
   );
 
   const { data: countries, error: countriesError } = useSWR(
@@ -23,11 +27,23 @@ export default function IndexPage() {
     "https://covid19.mathdro.id/api/confirmed", fetcher
   );
 
-  if (totalsError || historyError || countriesError || countryStatsError) {
+  if (
+    totalsError ||
+    historyOverTimeError ||
+    countriesError ||
+    countryStatsError ||
+    historyPerDayError
+  ) {
     return <p>Error...</p>;
   }
       
-  if (!countries || !totals || !history || !countryStats) {
+  if (
+    !countries ||
+    !totals ||
+    !historyOverTime ||
+    !countryStats ||
+    !historyPerDay
+  ) {
     return (
       <BeatLoaderWrapper>
         <BeatLoader color={"#fb8c00"} />
@@ -65,7 +81,8 @@ export default function IndexPage() {
       <PageWrapper>
         <Dashboard
           totals={totals}
-          history={history}
+          history={historyOverTime}
+          daily={historyPerDay}
           countries={reducedCountries}
         />
       </PageWrapper>

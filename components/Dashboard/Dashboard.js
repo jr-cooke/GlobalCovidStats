@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import Timeline from './components/Timeline';
+import DailyBarChart from "./components/DailyBarChart";
 import Totals from './components/Totals';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -10,7 +11,7 @@ import { useState } from 'react';
 
 dayjs.extend(relativeTime);
 
-export default function Dashboard({ totals, history }) {
+export default function Dashboard({ totals, history, daily }) {
   const [openTab, setOpenTab] = useState('history');
   const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
 
@@ -31,10 +32,10 @@ export default function Dashboard({ totals, history }) {
 
   const tabs = {
     overview: {
-      label: 'Overview',
+      label: "Overview",
       view: (
         <>
-          <Header mb='20px'>Totals</Header>
+          <Header mb="20px">Totals</Header>
           <Totals
             totals={totals}
             active={active}
@@ -45,7 +46,7 @@ export default function Dashboard({ totals, history }) {
             newDeaths={
               totals.deaths.value - history[history.length - 1].deaths.total
             }
-            />
+          />
           <Header>Breakdown</Header>
           <ConfirmedBreakdown data={pieData} />
         </>
@@ -55,11 +56,13 @@ export default function Dashboard({ totals, history }) {
       label: "History",
       view: (
         <>
-          <Header mb='30px'>Growth over time</Header>
+          <Header mb="30px">Growth over time</Header>
           <Timeline history={history} />
+          <Header mb="30px">Growth per day</Header>
+          <DailyBarChart history={history} daily={daily} />
         </>
       )
-    } 
+    }
   };
  
   return (
