@@ -26,7 +26,7 @@ function CustomTickX(props) {
         fill="#666"
         transform="rotate(45)"
       >
-        {dayjs(payload.date).format("MMM DD")}
+        {dayjs(payload.value).format("MMM DD")}
       </CustomTickText>
     </g>
   );
@@ -88,7 +88,7 @@ export default function DailyBarChart({ daily }) {
         >
           <YAxis tick={<CustomTickY />} width={30} />
           <XAxis
-            dataKey="reportDate"
+            dataKey="date"
             interval={7}
             axisLine={false}
             tick={<CustomTickX />}
