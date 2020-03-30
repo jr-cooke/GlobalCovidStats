@@ -23,5 +23,7 @@ const NavWrapper = styled.nav`
   align-items: center;
   justify-content: space-between;
   height: 38px;
-  padding: 1rem;
+  padding: 20px;
+  max-width: 768px;
+  margin: auto;
 `;
