@@ -156,6 +156,7 @@ const SearchedCountries = styled.div`
   max-height: 300px;
   overflow: scroll;
   animation: ${fadeIn} 0.2s linear;
+  z-index: 1;
   ::-webkit-scrollbar {
     display: none;
   }
