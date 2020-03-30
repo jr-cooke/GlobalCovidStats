@@ -15,7 +15,7 @@ import { formatNumber } from "../../../helpers/numbers";
 
 function CustomTickX(props) {
   const { x, y, payload } = props;
-
+  console.log(payload);
   return (
     <g transform={`translate(${x},${y})`}>
       <CustomTickText
@@ -26,7 +26,7 @@ function CustomTickX(props) {
         fill="#666"
         transform="rotate(45)"
       >
-        {dayjs(payload.date).format("MMM DD")}
+        {dayjs(payload.value).format("MMM DD")}
       </CustomTickText>
     </g>
   );
@@ -65,7 +65,6 @@ function CustomTooltip({ active, payload }) {
 }
 
 export default function CountryDailyBarChart({ daily }) {
-  console.log("CountryDailyBarChart -> daily", daily)
   const dateRange = Object.keys(daily.timeline.cases);
   const perDayData = [];
   for (let i = 0; i < dateRange.length; i++) {
@@ -89,7 +88,7 @@ export default function CountryDailyBarChart({ daily }) {
         >
           <YAxis tick={<CustomTickY />} width={30} />
           <XAxis
-            dataKey="reportDate"
+            dataKey="date"
             interval={7}
             axisLine={false}
             tick={<CustomTickX />}
