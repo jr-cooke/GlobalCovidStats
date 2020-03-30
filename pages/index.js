@@ -1,6 +1,7 @@
 import Dashboard from '../components/Dashboard/Dashboard';
 import styled from 'styled-components';
 import NavBar from "../components/Layout/NavBar";
+import Footer from "../components/Layout/Footer";
 import BeatLoader from "react-spinners/BeatLoader";
 import useSWR from 'swr';
 
@@ -86,6 +87,7 @@ export default function IndexPage() {
           countries={reducedCountries}
         />
       </PageWrapper>
+      <Footer />
     </>
   );
 }

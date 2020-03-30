@@ -180,4 +180,7 @@ const Country = styled.a`
   min-height: 40px;
   border-bottom: 1px solid ${autoSuggestBorder};
   padding-left: 10px;
+  &:hover{
+    cursor: pointer;
+  }
 `;

@@ -105,7 +105,7 @@ const DashboardHeader = styled.div`
   animation: ${fadeIn} 0.5s linear;
   margin-bottom: 30px;
   small{
-   font-size: 16px; 
+   font-size: 14px; 
   }
 `;
 
@@ -120,6 +120,9 @@ const Tab = styled.span`
   padding: 5px;
   color: ${({ openTab }) => (openTab ? toggleButtonColor : headerBorder)};
   transition: border 0.5s ease-in-out;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const Header = styled.span`
