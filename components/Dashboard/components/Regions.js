@@ -24,7 +24,7 @@ export default function Regions({ regions }) {
     <Wrapper>
       <RegionSearch>
         <FiSearch />
-        <Input
+        <input
           value={search}
           onChange={e => handleInput(e)}
         />
@@ -109,26 +109,25 @@ const RegionSearch = styled.div`
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding: 5px;
-  svg{
+  padding: 5px 10px;
+  svg {
     margin-right: 7px;
     font-size: 20px;
     color: ${toggleButtonColor};
   }
-`;
-
-const Input = styled.input`
-  background-color: transparent;
-  border: none;
-  color: ${textColor};
-  font-size: 16px;
-  &:active {
-    outline: none;
-  }
-  &:focus {
-    outline: none;
-  }
-  ::placeholder {
-    font-weight: 300;
+  input {
+    background-color: transparent;
+    border: none;
+    color: ${textColor};
+    font-size: 16px;
+    &:active {
+      outline: none;
+    }
+    &:focus {
+      outline: none;
+    }
+    ::placeholder {
+      font-weight: 300;
+    }
   }
 `;
