@@ -1,1 +1,1 @@
-# CoronaTime
+# Global Covid Stats
