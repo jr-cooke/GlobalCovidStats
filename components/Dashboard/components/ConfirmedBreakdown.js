@@ -5,7 +5,6 @@ import { useTheme } from '../../../contexts/theme';
 const COLORS = ["#e53935", "#1e88e5", "#757575"];
 
 export default function ConfirmedBreakdown({ data }){
-  console.log("ConfirmedBreakdown -> data", data)
   const active = data.find(d => d.stat === "Active").value;
   const recovered = data.find(d => d.stat === "Recovered").value;
   const deaths = data.find(d => d.stat === "Deaths").value;

@@ -34,7 +34,6 @@ export default function AutoSuggest({ countries }) {
       const filtered = countries.filter(c => {
         return c.country.toLowerCase().includes(search.toLowerCase());
       });
-      console.log("object", filtered);
       setSearchedCountries(filtered);
     } else {
       setSearchedCountries([]);
@@ -111,9 +110,8 @@ const CountrySearch = styled.div`
   display: flex;
   color: ${toggleButtonColor};
   border: 1px solid ${toggleButtonColor};
-  width: ${({ showSearch }) => (showSearch ? "50%" : "20px")};
+  width: ${({ showSearch }) => (showSearch ? "200px" : "20px")};
   transition: 0.5s ease;
-  max-width: 50%;
   border-radius: 10px;
   padding: 2px 10px;
   height: 26px;
@@ -145,12 +143,11 @@ const CountrySearch = styled.div`
 
 const SearchedCountries = styled.div`
   background: ${backgroundColor};
-  width: calc(50% + 5px);
+  width: 220px;
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 50px;
-  margin-top: 5px;
+  top: 60px;
   border-radius: 10px;
   border: 1px solid ${toggleButtonColor};
   max-height: 300px;

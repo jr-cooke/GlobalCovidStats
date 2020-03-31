@@ -15,7 +15,6 @@ import { formatNumber } from "../../../helpers/numbers";
 
 function CustomTickX(props) {
   const { x, y, payload } = props;
-  console.log(payload);
   return (
     <g transform={`translate(${x},${y})`}>
       <CustomTickText
