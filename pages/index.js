@@ -4,6 +4,7 @@ import NavBar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
 import BeatLoader from "react-spinners/BeatLoader";
 import useSWR from 'swr';
+import Head from 'next/head';
 
 const fetcher = url => fetch(url).then(r => r.json());
 
@@ -78,6 +79,10 @@ export default function IndexPage() {
 
   return (
     <>
+      <Head>
+        <title>Global COVID-19 Stats</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <NavBar countries={reducedCountries} />
       <PageWrapper>
         <Dashboard

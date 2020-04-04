@@ -11,6 +11,8 @@ import ConfirmedBreakdown from '../../components/Dashboard/components/ConfirmedB
 import NavBar from '../../components/Layout/NavBar';
 import Footer from '../../components/Layout/Footer';
 import useSWR from "swr";
+import Head from 'next/head';
+
 import { useState } from 'react';
 import {
   toggleButtonColor,
@@ -137,6 +139,10 @@ const Country = () => {
 
   return (
     <>
+      <Head>
+        <title>{country} COVID-19 Stats</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <NavBar />
       <PageWrapper>
         <CountryWrapper>
