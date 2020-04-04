@@ -5,13 +5,14 @@ import Totals from './components/Totals';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
+import Epicenters from "./components/Epicenters";
 import { toggleButtonColor, headerBorder } from "../../theme";
 
 import { useState } from 'react';
 
 dayjs.extend(relativeTime);
 
-export default function Dashboard({ totals, history, daily }) {
+export default function Dashboard({ totals, history, countries, daily }) {
   const [openTab, setOpenTab] = useState('overview');
   const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
 
@@ -61,6 +62,12 @@ export default function Dashboard({ totals, history, daily }) {
           <Header mb="30px">Growth per day</Header>
           <DailyBarChart history={history} daily={daily} />
         </>
+      )
+    },
+    epicenters: {
+      label: "Epicenters",
+      view: (
+        <Epicenters countries={countries} />
       )
     }
   };
