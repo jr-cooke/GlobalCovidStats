@@ -9,6 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Regions from '../../components/Dashboard/components/Regions';
 import ConfirmedBreakdown from '../../components/Dashboard/components/ConfirmedBreakdown';
 import NavBar from '../../components/Layout/NavBar';
+import Footer from '../../components/Layout/Footer';
 import useSWR from "swr";
 import { useState } from 'react';
 import {
@@ -157,6 +158,7 @@ const Country = () => {
           {tabs[openTab].view}
         </CountryWrapper>
       </PageWrapper>
+      <Footer />
     </>
   );
 };
