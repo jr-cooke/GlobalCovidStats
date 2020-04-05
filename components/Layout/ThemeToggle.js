@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { useTheme } from "../../contexts/theme";
 import { toggleButtonColor } from "../../theme";
 import { FiSun, FiMoon } from "react-icons/fi";

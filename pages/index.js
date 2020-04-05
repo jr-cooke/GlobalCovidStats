@@ -66,6 +66,7 @@ export default function IndexPage() {
     .map(gC => {
       return {
         country: gC[0].countryRegion,
+        iso: gC[0].iso3,
         confirmed: gC.reduce((total, c) => total + c.confirmed, 0),
         deaths: gC.reduce((total, c) => total + c.deaths, 0),
         active: gC.reduce((total, c) => total + c.active, 0),

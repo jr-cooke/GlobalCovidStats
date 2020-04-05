@@ -12,7 +12,7 @@ import NavBar from '../../components/Layout/NavBar';
 import Footer from '../../components/Layout/Footer';
 import useSWR from "swr";
 import Head from 'next/head';
-
+import { FiPieChart, FiMap, FiBarChart, FiTrendingUp } from "react-icons/fi";
 import { useState } from 'react';
 import {
   toggleButtonColor,
@@ -102,6 +102,7 @@ const Country = () => {
 
   const tabs = {
     overview: {
+      icon: <FiPieChart />,
       label: "Overview",
       view: (
         <>
@@ -121,6 +122,7 @@ const Country = () => {
       )
     },
     history: {
+      icon: <FiBarChart />,
       label: "History",
       view: (
         <>
@@ -132,6 +134,7 @@ const Country = () => {
       )
     },
     regions: {
+      icon: <FiTrendingUp />,
       label: "Regions",
       view: <Regions regions={reducedRegions} />
     }
@@ -157,7 +160,7 @@ const Country = () => {
                 onClick={() => setOpenTab(tab)}
                 key={tabs[tab].label}
               >
-                {tabs[tab].label}
+                {tabs[tab].icon}
               </Tab>
             ))}
           </Tabs>
@@ -225,6 +228,12 @@ const Tab = styled.span`
   padding: 5px;
   color: ${({ openTab }) => (openTab ? toggleButtonColor : headerBorder)};
   transition: border 0.5s ease-in-out;
+  &:hover {
+    cursor: pointer;
+  }
+  svg {
+    font-size: 24px;
+  }
 `;
 
 const Header = styled.span`

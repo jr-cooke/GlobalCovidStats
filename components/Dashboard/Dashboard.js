@@ -6,14 +6,20 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
 import Epicenters from "./components/Epicenters";
+import Map from "./components/Map";
+import ReactTooltip from "react-tooltip";
 import { toggleButtonColor, headerBorder } from "../../theme";
-
+import { FiPieChart, FiMap, FiBarChart, FiTrendingUp } from "react-icons/fi";
 import { useState } from 'react';
+import { useTheme } from "../../contexts/theme";
+
 
 dayjs.extend(relativeTime);
 
 export default function Dashboard({ totals, history, countries, daily }) {
+  const { theme } = useTheme(); 
   const [openTab, setOpenTab] = useState('overview');
+  const [content, setContent] = useState("");
   const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
 
   const pieData = [
@@ -33,7 +39,8 @@ export default function Dashboard({ totals, history, countries, daily }) {
 
   const tabs = {
     overview: {
-      label: "Overview",
+      label: 'Overview',
+      icon: <FiPieChart key="tab1" />,
       view: (
         <>
           <Header mb="20px">Totals</Header>
@@ -51,10 +58,11 @@ export default function Dashboard({ totals, history, countries, daily }) {
           <Header>Breakdown</Header>
           <ConfirmedBreakdown data={pieData} />
         </>
-      )
+      ),
     },
     history: {
-      label: "History",
+      label: 'History',
+      icon: <FiBarChart key="tab2" />,
       view: (
         <>
           <Header mb="30px">Growth over time</Header>
@@ -62,14 +70,24 @@ export default function Dashboard({ totals, history, countries, daily }) {
           <Header mb="30px">Growth per day</Header>
           <DailyBarChart history={history} daily={daily} />
         </>
-      )
+      ),
     },
     epicenters: {
-      label: "Epicenters",
+      label: 'Epicenters',
+      icon: <FiTrendingUp key="tab3" />,
+      view: <Epicenters countries={countries} />,
+    },
+    map: {
+      icon: <FiMap key="tab4" />,
+      label: 'Map',
       view: (
-        <Epicenters countries={countries} />
-      )
-    }
+        <>
+          <Header mb="30px">Gloabal Heatmap</Header>
+          <Map countries={countries} setTooltipContent={setContent} />
+          <ReactTooltip type={theme.mode === 'light' ? 'light' : 'dark'} borderRadius={10}>{content}</ReactTooltip>
+        </>
+      ),
+    },
   };
  
   return (
@@ -80,7 +98,7 @@ export default function Dashboard({ totals, history, countries, daily }) {
       </DashboardHeader>
       <Tabs>
         {Object.keys(tabs).map(tab => (
-          <Tab openTab={openTab === tab} onClick={() => setOpenTab(tab)} key={tabs[tab].label}>{tabs[tab].label}</Tab>
+          <Tab openTab={openTab === tab} onClick={() => setOpenTab(tab)} key={tabs[tab].label}>{tabs[tab].icon}</Tab>
         ))}
       </Tabs>
       {tabs[openTab].view}
@@ -129,6 +147,9 @@ const Tab = styled.span`
   transition: border 0.5s ease-in-out;
   &:hover{
     cursor: pointer;
+  }
+  svg{
+    font-size: 24px;
   }
 `;
 
