@@ -30,7 +30,7 @@ const Country = () => {
   const { country } = router.query;
   
   const { data: history, error: historyError } = useSWR(
-    `https://corona.lmao.ninja/v2/historical/${country === "Korea, South" ? "S. Korea" : country}`,
+    `https://corona.lmao.ninja/v2/historical/${country === "Korea, South" ? "S. Korea" : country}?lastdays=all`,
     fetcher
   );
   
