@@ -2,6 +2,8 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import {
   BarChart,
+  LineChart,
+  Line,
   Bar,
   XAxis,
   YAxis,
@@ -54,6 +56,9 @@ function CustomTooltip({ active, payload }) {
         <ToolTipLabel color="#fb8c00">
           Confirmed: {formatNumber(payload[0].payload.confirmed)}
         </ToolTipLabel>
+        <ToolTipLabel color="#1e88e5">
+          Recovered: {formatNumber(payload[0].payload.recovered)}
+        </ToolTipLabel>
         <ToolTipLabel color="#757575">
           Fatalities: {formatNumber(payload[0].payload.deaths)}
         </ToolTipLabel>
@@ -64,24 +69,28 @@ function CustomTooltip({ active, payload }) {
   return null;
 }
 
-export default function DailyBarChart({ daily }) {
-  const dateRange = Object.keys(daily.cases);
+export default function DailyBarChart({ history }) {
+  console.log("DailyBarChart -> history", history)
+  const dateRange = Object.keys(history.cases);
   const perDayData = [];
   for (let i = 0; i < dateRange.length; i++) {
-    const confirmed = daily.cases[dateRange[i]];
-    const deaths = daily.deaths[dateRange[i]];
-    const pastConfirmed = i - 1 < 0 ? 0 : daily.cases[dateRange[i - 1]];
-    const pastDeaths = i - 1 < 0 ? 0 : daily.deaths[dateRange[i - 1]];
+    const confirmed = history.cases[dateRange[i]];
+    const deaths = history.deaths[dateRange[i]];
+    const recovered = history.recovered[dateRange[i]];
+    const pastConfirmed = i - 1 < 0 ? 0 : history.cases[dateRange[i - 1]];
+    const pastRecovered = i - 1 < 0 ? 0 : history.recovered[dateRange[i - 1]];
+    const pastDeaths = i - 1 < 0 ? 0 : history.deaths[dateRange[i - 1]];
     perDayData.push({
       date: dateRange[i],
       confirmed: confirmed - pastConfirmed,
+      recovered: recovered - pastRecovered,
       deaths: deaths - pastDeaths
     });
   }
   return (
     <TotalsTimeline>
       <ResponsiveContainer>
-        <BarChart
+        <LineChart
           data={perDayData}
           strokeWidth={1.5}
           margin={{ left: 15, right: 15, bottom: 30, top: 10 }}
@@ -89,22 +98,32 @@ export default function DailyBarChart({ daily }) {
           <YAxis tick={<CustomTickY />} width={30} />
           <XAxis
             dataKey="date"
-            interval={7}
-            axisLine={false}
+            interval={14}
             tick={<CustomTickX />}
           />
           <Tooltip offset={0} cursor={false} content={<CustomTooltip />} />
-          <Bar
+          <Line
             dataKey="confirmed"
-            fill="#fb8c00"
-            barSize={5}
-            />
-          <Bar
-            dataKey="deaths"
-            fill="#757575"
-            barSize={5}
+            stroke="#fb8c00"
+            strokeWidth={2}
+            dot={false}
+            type="natural"
           />
-        </BarChart>
+          <Line
+            dataKey="recovered"
+            stroke="#1e88e5"
+            strokeWidth={2}
+            dot={false}
+            type="natural"
+          />
+          <Line
+            dataKey="deaths"
+            stroke="#757575"
+            strokeWidth={2}
+            dot={false}
+            type="natural"
+          />
+        </LineChart>
       </ResponsiveContainer>
     </TotalsTimeline>
   );

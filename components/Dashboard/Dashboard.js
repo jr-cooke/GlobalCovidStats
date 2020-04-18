@@ -2,9 +2,10 @@ import styled, { keyframes } from 'styled-components';
 import Timeline from './components/Timeline';
 import DailyBarChart from "./components/DailyBarChart";
 import Totals from './components/Totals';
+import Testing from './components/Testing';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import ConfirmedBreakdown from "./components/ConfirmedBreakdown";
+import CaseBreakdown from "./components/CaseBreakdown";
 import Epicenters from "./components/Epicenters";
 import Map from "./components/Map";
 import ReactTooltip from "react-tooltip";
@@ -16,26 +17,10 @@ import { useTheme } from "../../contexts/theme";
 
 dayjs.extend(relativeTime);
 
-export default function Dashboard({ totals, history, countries, daily }) {
+export default function Dashboard({ totals, history, countries }) {
   const { theme } = useTheme(); 
   const [openTab, setOpenTab] = useState('overview');
   const [content, setContent] = useState("");
-  const active = totals.confirmed.value - (totals.deaths.value + totals.recovered.value);
-
-  const pieData = [
-    {
-      stat: "Active",
-      value: active
-    },
-    {
-      stat: "Recovered",
-      value: totals.recovered.value
-    },
-    {
-      stat: "Deaths",
-      value: totals.deaths.value
-    }
-  ];
 
   const tabs = {
     overview: {
@@ -43,20 +28,12 @@ export default function Dashboard({ totals, history, countries, daily }) {
       icon: <FiPieChart key="tab1" />,
       view: (
         <>
-          <Header mb="20px">Totals</Header>
-          <Totals
-            totals={totals}
-            active={active}
-            newConfirmed={
-              totals.confirmed.value -
-              history[history.length - 1].totalConfirmed
-            }
-            newDeaths={
-              totals.deaths.value - history[history.length - 1].deaths.total
-            }
-          />
-          <Header>Breakdown</Header>
-          <ConfirmedBreakdown data={pieData} />
+          {/* <Header mb="20px">Totals</Header> */}
+          <Totals totals={totals} />
+          {/* <Header mb="20px">Case Breakdown</Header> */}
+          <CaseBreakdown totals={totals} />
+          {/* <Header mb="20px">Testing Status</Header> */}
+          {/* <Testing totals={totals} /> */}
         </>
       ),
     },
@@ -68,7 +45,7 @@ export default function Dashboard({ totals, history, countries, daily }) {
           <Header mb="30px">Growth over time</Header>
           <Timeline history={history} />
           <Header mb="30px">Growth per day</Header>
-          <DailyBarChart history={history} daily={daily} />
+          <DailyBarChart history={history} />
         </>
       ),
     },
@@ -94,7 +71,7 @@ export default function Dashboard({ totals, history, countries, daily }) {
     <DashboardWrapper>
       <DashboardHeader>
         <span>Global COVID-19 Stats</span>
-        <small>Updated {dayjs(totals.lastUpdate).fromNow()}</small>
+        <small>Updated {dayjs(totals.updated).fromNow()}</small>
       </DashboardHeader>
       <Tabs>
         {Object.keys(tabs).map(tab => (

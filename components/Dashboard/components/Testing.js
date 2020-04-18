@@ -1,22 +1,20 @@
 import styled, { keyframes } from "styled-components";
 import { formatNumber } from "../../../helpers/numbers";
 
-export default function Totals({ totals }) {
+export default function Testing({ totals }) {
   console.log("Totals -> totals", totals)
   return (
     <TotalsWrapper>
-      <TotalsRow mb={"20px"}>
-        <Total>
-          <Number color="#fb8c00">
-            {formatNumber(totals.cases)}
-          </Number>
-          <Label>Total Cases</Label>
-        </Total>
-        <Total>
-          <Number color="#fb8c00">+{formatNumber(totals.todayCases)}</Number>
-          <Label>Today</Label>
-        </Total>
-      </TotalsRow>
+      <Total>
+        <Number>{formatNumber(totals.tests)}</Number>
+        <Label>Tests</Label>
+      </Total>
+      <Total>
+        <Number>
+          {formatNumber(totals.testsPerOneMillion)}
+        </Number>
+        <Label>Tests per million</Label>
+      </Total>
     </TotalsWrapper>
   );
 }
@@ -32,23 +30,10 @@ const fadeIn = keyframes`
 
 const TotalsWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   animation: ${fadeIn} 0.5s linear;
-  margin-top: 20px;
-  border-radius: 10px;
-  background-color: #101010;
-  border: 1px solid #212121;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-`;
-
-const TotalsRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  margin-bottom: ${({ mb }) => mb || '0px'};
-  width: 100%;
 `;
 
 const Total = styled.div`
@@ -57,6 +42,7 @@ const Total = styled.div`
   justify-content: center;
   align-items: center;
   width: 50%;
+  opacity: 0.8;
 `;
 
 const Number = styled.span`

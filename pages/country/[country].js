@@ -1,13 +1,13 @@
 import styled, { keyframes } from 'styled-components';
 import { useRouter } from "next/router";
 import Totals from '../../components/Dashboard/components/Totals'
-import CountryTimeline from '../../components/Dashboard/components/CountryTimeline'
-import CountryDailyBarChart from '../../components/Dashboard/components/CountryDailyBarChart'
+import Timeline from '../../components/Dashboard/components/Timeline'
+import DailyBarChart from '../../components/Dashboard/components/DailyBarChart'
 import BeatLoader from "react-spinners/BeatLoader";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Regions from '../../components/Dashboard/components/Regions';
-import ConfirmedBreakdown from '../../components/Dashboard/components/ConfirmedBreakdown';
+import CaseBreakdown from '../../components/Dashboard/components/CaseBreakdown';
 import NavBar from '../../components/Layout/NavBar';
 import Footer from '../../components/Layout/Footer';
 import useSWR from "swr";
@@ -25,7 +25,7 @@ dayjs.extend(relativeTime);
 const fetcher = url => fetch(url).then(r => r.json());
 
 const Country = () => {
-  const [openTab, setOpenTab] = useState("overview");
+  const [openTab, setOpenTab] = useState("history");
   const router = useRouter();
   const { country } = router.query;
   
@@ -33,6 +33,7 @@ const Country = () => {
     `https://corona.lmao.ninja/v2/historical/${country === "Korea, South" ? "S. Korea" : country}?lastdays=all`,
     fetcher
   );
+  // console.log("Country -> history", history)
   
   const { data: totals, error: totalsError } = useSWR(
     `https://covid19.mathdro.id/api/countries/${country}`,
@@ -117,7 +118,7 @@ const Country = () => {
             newDeaths={totals.deaths.value - data[data.length - 1].deaths}
           />
           <Header>Breakdown</Header>
-          <ConfirmedBreakdown data={pieData} />
+          <CaseBreakdown data={pieData} />
         </>
       )
     },
@@ -127,9 +128,9 @@ const Country = () => {
       view: (
         <>
           <Header mb="30px">Growth over time</Header>
-          <CountryTimeline history={data} />
+          <Timeline history={history.timeline} />
           <Header mb="30px">Growth per day</Header>
-          <CountryDailyBarChart daily={history} />
+          <DailyBarChart history={history.timeline} />
         </>
       )
     },
