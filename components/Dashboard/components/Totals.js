@@ -32,6 +32,7 @@ const fadeIn = keyframes`
 `;
 
 const TotalsWrapper = styled.div`
+  padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,6 +49,7 @@ const TotalsWrapper = styled.div`
 const TotalsRow = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   margin-top: 20px;
   margin-bottom: ${({ mb }) => mb || '0px'};
   width: 100%;
@@ -58,7 +60,6 @@ const Total = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
 `;
 
 const Number = styled.span`

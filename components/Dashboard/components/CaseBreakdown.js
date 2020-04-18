@@ -216,7 +216,7 @@ const BreakdownWrapper = styled.div`
   border: 1px solid ${cardBorder};
   box-shadow: ${cardBoxShadow};
   width: 100%;
-  max-width: 400px;
+  /* max-width: 400px; */
   border-radius: 10px;
   margin-bottom: 20px;
   animation: ${fadeIn} 0.3s linear;
