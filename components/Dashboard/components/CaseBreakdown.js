@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
-import { ResponsiveContainer, PieChart, Pie, Cell, Sector  } from "recharts";
-import { headerBorder } from "../../../theme";
+import { ResponsiveContainer, PieChart, Pie, Cell  } from "recharts";
+import { cardBackgroundColor, cardBorder, cardBoxShadow } from "../../../theme";
 import { formatNumber } from "../../../helpers/numbers";
 
 export default function CaseBreakdown({ totals }){
@@ -212,14 +212,15 @@ const CaseBreakdownWrapper = styled.div`
 const BreakdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #101010;
-  border: 1px solid #212121;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  background-color: ${cardBackgroundColor};
+  border: 1px solid ${cardBorder};
+  box-shadow: ${cardBoxShadow};
   width: 100%;
   max-width: 400px;
   border-radius: 10px;
   margin-bottom: 20px;
-  animation: ${fadeIn} 0.5s linear;
+  animation: ${fadeIn} 0.3s linear;
+  transition: background-color 0.3s ease, border 0.3s ease;
 `;
 
 const BreakdownHeader = styled.div`

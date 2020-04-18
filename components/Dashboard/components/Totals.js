@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { formatNumber } from "../../../helpers/numbers";
+import { cardBackgroundColor, cardBorder, cardBoxShadow } from "../../../theme";
 
 export default function Totals({ totals }) {
   console.log("Totals -> totals", totals)
@@ -38,9 +39,10 @@ const TotalsWrapper = styled.div`
   animation: ${fadeIn} 0.5s linear;
   margin-top: 20px;
   border-radius: 10px;
-  background-color: #101010;
-  border: 1px solid #212121;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  background-color: ${cardBackgroundColor};
+  border: 1px solid ${cardBorder};
+  box-shadow: ${cardBoxShadow};
+  transition: background-color 0.3s ease, border 0.3s ease;
 `;
 
 const TotalsRow = styled.div`
