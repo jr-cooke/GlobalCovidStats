@@ -18,7 +18,7 @@ export default function IndexPage() {
   );
 
   const { data: historyPerDay, error: historyPerDayError } = useSWR(
-    "https://corona.lmao.ninja/v2/historical/all", fetcher
+    "https://corona.lmao.ninja/v2/historical/all?lastdays=all", fetcher
   );
 
   const { data: countries, error: countriesError } = useSWR(
